@@ -78,7 +78,13 @@ const MEDALLON = (() => {
   return { x, y, x2: x + w, y2: y + h };
 })();
 
-/** Parte el atributo d en sub-trazos y separa los que tocan el medallón. */
+/** Parte el atributo d en sub-trazos y separa los que están en el medallón.
+ *
+ *  OJO: hay que comprobar CONTENCIÓN, no solapamiento. La figura izquierda
+ *  tiene su caja envolvente cruzando el rectángulo del medallón (su brazo
+ *  llega hasta el centro), así que con un test de solapamiento se la
+ *  clasificaba entera como "dentro" y quedaba en tinta sobre fondo tinta:
+ *  invisible. Las pelotas, en cambio, están totalmente dentro. */
 function separarPorMedallon(d) {
   const dentro = [];
   const fuera = [];
@@ -90,9 +96,9 @@ function separarPorMedallon(d) {
       x0 = Math.min(x0, nums[i]); x1 = Math.max(x1, nums[i]);
       y0 = Math.min(y0, nums[i + 1]); y1 = Math.max(y1, nums[i + 1]);
     }
-    const toca =
-      x1 >= MEDALLON.x && x0 <= MEDALLON.x2 && y1 >= MEDALLON.y && y0 <= MEDALLON.y2;
-    (toca ? dentro : fuera).push(trozo.trim());
+    const contenido =
+      x0 >= MEDALLON.x && x1 <= MEDALLON.x2 && y0 >= MEDALLON.y && y1 <= MEDALLON.y2;
+    (contenido ? dentro : fuera).push(trozo.trim());
   }
   return { dentro: dentro.join(""), fuera: fuera.join("") };
 }
@@ -114,6 +120,18 @@ function pintarFueraDelMedallon(svg, hexOriginal, hexNuevo, nombre) {
   if (!dentro || !fuera) {
     throw new Error(
       `La capa "${nombre}" no se pudo separar por el medallón. Revisá data-medallon.`
+    );
+  }
+  // El medallón ocupa una porción chica de cada capa (solo las pelotas).
+  // Si "dentro" se lleva la mayor parte, es que el rectángulo medido
+  // abarca cosas que deberían repintarse.
+  const razonDentro = dentro.length / (dentro.length + fuera.length);
+  if (razonDentro > 0.5) {
+    throw new Error(
+      `La capa "${nombre}" quedaría un ${Math.round(razonDentro * 100)}% sin repintar.\n` +
+        "Eso significa que el rectángulo del medallón (data-medallon) es demasiado " +
+        "grande y se tragaría figuras que deben cambiar de color.\n" +
+        "Regenerá el logo con:  python marca/tools/vectorizar.py"
     );
   }
   return svg.replace(
