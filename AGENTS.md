@@ -31,13 +31,19 @@ The brand manual, logo and social templates live in `marca/`. Read
 - **Fonts:** Outfit (display) + Plus Jakarta Sans (body), self-hosted at
   `marca/tipo/`. **Inter is deliberately banned** — it is the default font of
   everything AI-generated and the brand needs its own voice.
-- **Logo:** `marca/logo/sanluis3-logo-completo.svg` is the vectorized real
-  logo. `favicon.svg` is the *reduced* mark on purpose (unreadable at 16px).
-  Never redraw the logo by hand; edit the SVG and run `node marca/tools/variantes.mjs`.
-- **Regenerating assets** (needs Node.js):
+- **Logo:** `marca/logo/sanluis3-logo-completo.svg` is **auto-traced** from
+  `logo-san-luis-iii.png` by `marca/tools/vectorizar.py` (OpenCV contours,
+  one `<path>` per color layer). Never hand-draw it and never hand-edit the
+  traced SVG: replace the PNG and re-run the tracer, then `variantes.mjs`.
+  `favicon.svg` is the *reduced* mark on purpose (unreadable at 16px).
+- **Regenerating assets** (needs Node.js; the tracer also needs Python):
+  - `python marca/tools/vectorizar.py` → re-traces the logo from the PNG
+  - `node marca/tools/variantes.mjs` → rebuilds logo colour variants
   - `node marca/tools/plantillas.mjs` → rebuilds the 8 social templates
   - `node marca/tools/render.mjs` → exports all PNG + PDF, verifying exact pixel dimensions
   - `node marca/tools/limpiar-svg.mjs` → validates SVG (no `--` inside comments, no BOM)
+- Template helpers take a **height** only and derive the width from the
+  symbol's `viewBox`; do not hard-code logo widths.
 - `manual-de-marca.html` is both the human manual and the printable PDF.
 
 ## Files

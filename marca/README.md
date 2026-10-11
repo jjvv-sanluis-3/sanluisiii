@@ -45,15 +45,22 @@ node marca/tools/render.mjs solo=plantillas
 |---|---|---|
 | Un color | `tokens/tokens.css` | `node marca/tools/plantillas.mjs` y `render.mjs solo=plantillas` |
 | El texto de las piezas | `tools/plantillas.mjs` (bloque `C`) | `node marca/tools/plantillas.mjs` y `render.mjs` |
-| El logo | `logo/sanluis3-logo-completo.svg` | `node marca/tools/variantes.mjs` |
+| El logo | `logo-san-luis-iii.png` (el PNG original, en la raíz del repo) | `python marca/tools/vectorizar.py` y `node marca/tools/variantes.mjs` |
 | La retícula de identidad | `tools/board.mjs` | `node marca/tools/board.mjs` y `render.mjs solo=board` |
+
+> **El logo no se dibuja a mano.** Para cambiarlo hay que reemplazar el PNG
+> original y volver a vectorizarlo. Una versión anterior se dibujó a mano
+> "mirando" el PNG y quedó fiel solo en la idea: la figura izquierda, el
+> tamaño de las pelotas y el relleno del medallón no coincidían.
+> El trazador automático sí sigue el contorno real.
 
 Comandos sueltos:
 
 ```bash
+python marca/tools/vectorizar.py            # Vectoriza el logo desde el PNG
+node marca/tools/variantes.mjs              # Regenera las versiones del logo
 node marca/tools/limpiar-svg.mjs            # Revisa que los SVG estén sanos
 node marca/tools/limpiar-svg.mjs --check    # Solo revisa, sin escribir
-node marca/tools/variantes.mjs              # Regenera las versiones del logo
 node marca/tools/plantillas.mjs             # Regenera las 8 plantillas
 node marca/tools/board.mjs                  # Regenera la retícula 3x3
 node marca/tools/render.mjs                 # Exporta TODO a PNG y PDF
@@ -62,8 +69,15 @@ node marca/tools/render.mjs solo=plantillas # Solo un grupo
 
 ## Requisitos
 
-Solo **Node.js** (gratis, [nodejs.org](https://nodejs.org)) y un navegador
-Chromium — Windows ya trae Edge, así que normalmente no hay que instalar nada.
+**Node.js** (gratis, [nodejs.org](https://nodejs.org)) y un navegador Chromium
+— Windows ya trae Edge, así que normalmente no hay que instalar nada.
+
+Para **cambiar el logo** además hace falta **Python** con estas librerías:
+
+```
+pip install opencv-python numpy pillow
+```
+
 Todo se genera en el computador, sin cuentas, sin IA de pago y sin internet
 después de la primera vez.
 

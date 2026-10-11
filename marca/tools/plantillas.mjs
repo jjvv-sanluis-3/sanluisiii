@@ -44,24 +44,30 @@ const C = {
    ------------------------------------------------------------------ */
 const simboloRaw = readFileSync(resolve(RAIZ, "marca", "logo", "sanluis3-simbolo.svg"), "utf8");
 const VIEWBOX = simboloRaw.match(/viewBox="([^"]+)"/)[1];
-let grupo = simboloRaw.slice(simboloRaw.indexOf('<g id="marca"'));
-grupo = grupo.slice(0, grupo.lastIndexOf("</g>") + 4);
+// El trazado automático emite varios <path> (uno por capa de color),
+// así que se toma todo el contenido del svg, sin el etiqueta de cierre.
+const CONTENIDO = simboloRaw.slice(
+  simboloRaw.indexOf(">", simboloRaw.indexOf("<svg")) + 1,
+  simboloRaw.lastIndexOf("</svg>")
+);
 
-/** Devuelve el símbolo como SVG inline, del tamaño pedido. */
-function logo(w, h, opciones = {}) {
-  const { clase = "", id = "a" } = opciones;
-  // Los id de recorte deben ser únicos si el logo se repite en un mismo archivo
-  const limpio = grupo.replace(/id="(c-[a-z]+)"/g, `id="$1-${id}"`)
-                      .replace(/url\(#(c-[a-z]+)\)/g, `url(#$1-${id})`);
-  return `<svg class="${clase}" viewBox="${VIEWBOX}" width="${w}" height="${h}" role="img"
-       aria-label="Junta de Vecinos San Luis III">${limpio}</svg>`;
+/** Se pide la ALTURA y el ancho sale del viewBox. Fijar el ancho a mano
+    fue justo lo que se rompió cuando el símbolo cambió de proporción. */
+const [, , VW, VH] = VIEWBOX.split(/\s+/).map(Number);
+const ASPECTO = VW / VH;
+
+function logo(alto, opciones = {}) {
+  const { clase = "" } = opciones;
+  return `<svg class="${clase}" viewBox="${VIEWBOX}" width="${Math.round(alto * ASPECTO)}"
+       height="${alto}" role="img"
+       aria-label="Junta de Vecinos San Luis III">${CONTENIDO}</svg>`;
 }
 
 /** Lockup horizontal: símbolo + nombre, para Encabezados. */
 function lockup(alto, opciones = {}) {
-  const { clase = "", id = "b" } = opciones;
+  const { clase = "" } = opciones;
   return `<div class="brandmark ${clase}">
-        ${logo(alto, Math.round(alto * 0.845), { id })}
+        ${logo(alto)}
         <span class="brand-text">Junta de Vecinos<small>SAN LUIS III · MAIPÚ</small></span>
       </div>`;
 }
@@ -219,7 +225,7 @@ const PIEZAS = {
     <span class="chip ghost">${C.fecha}</span>
 
     <div style="margin-top:60px;display:flex;align-items:center;gap:22px">
-      ${logo(88, 74, { id: "p4" })}
+      ${logo(74)}
       <span class="sign">${C.firma}</span>
     </div>
   </div>
@@ -247,7 +253,7 @@ const PIEZAS = {
 
     <div style="background:var(--color-surface-brand);display:grid;place-items:center;position:relative">
       <div class="ring" style="width:420px;height:420px;border-color:rgba(30,48,54,.2)"></div>
-      ${logo(300, 253, { id: "p5b" })}
+      ${logo(253)}
     </div>
   </div>
 </div>`,
@@ -292,7 +298,7 @@ const PIEZAS = {
 
     <div style="background:var(--color-surface-dark);position:relative;display:grid;place-items:center">
       <div class="ring" style="width:620px;height:620px;border-color:rgba(255,209,102,.24)"></div>
-      ${logo(340, 287, { id: "p7b" })}
+      ${logo(287)}
     </div>
   </div>
 </div>`,
@@ -329,7 +335,7 @@ const PIEZAS = {
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:36px">
       <span style="font-size:24px;font-weight:800;color:var(--ink-900)">${C.cta}</span>
-      ${logo(62, 52, { id: "p8" })}
+      ${logo(52)}
     </div>
   </div>
 </div>`,
