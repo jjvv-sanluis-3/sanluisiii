@@ -38,6 +38,10 @@ const CAPAS = [
  * Cambia el color de una capa. Falla ruidosamente si esa capa no está,
  * en vez de generar en silencio un logo con un agujero.
  */
+/**
+ * Cambia el color de una capa. Falla ruidosamente si esa capa no está,
+ * en vez de generar en silencio un logo con un agujero.
+ */
 function pintarCapa(svg, hexOriginal, hexNuevo, nombre) {
   const patron = `fill="${hexOriginal}"`;
   if (!svg.includes(patron)) {
@@ -47,6 +51,76 @@ function pintarCapa(svg, hexOriginal, hexNuevo, nombre) {
     );
   }
   return svg.replace(patron, `fill="${hexNuevo}"`);
+}
+
+/* ------------------------------------------------------------------
+   EL MEDALLÓN ES AUTÓNOMO
+   ------------------------------------------------------------------
+   El medallón lleva su propio disco blanco, así que tiene que verse
+   IGUAL sobre cualquier fondo: es lo que hace que el logo se lea como
+   el mismo y no como tres logos distintos.
+
+   Si al hacer la versión para fondo oscuro se pinta toda la capa de
+   tinta de blanco, las pelotas de fútbol y vóleibol —que también son
+   tinta— se funden con ese disco y el medallón pierde su dibujo. Por
+   eso las variantes de color repintan SOLO lo que queda fuera del
+   medallón, usando el rectángulo que midió el trazador. */
+
+const MEDALLON = (() => {
+  const m = base.match(/data-medallon="(\d+) (\d+) (\d+) (\d+)"/);
+  if (!m) {
+    throw new Error(
+      "El SVG base no trae data-medallon.\n" +
+        "Regenerá el logo con:  python marca/tools/vectorizar.py"
+    );
+  }
+  const [x, y, w, h] = m.slice(1).map(Number);
+  return { x, y, x2: x + w, y2: y + h };
+})();
+
+/** Parte el atributo d en sub-trazos y separa los que tocan el medallón. */
+function separarPorMedallon(d) {
+  const dentro = [];
+  const fuera = [];
+  for (const trozo of d.split(/(?=M)/)) {
+    if (!trozo.trim()) continue;
+    const nums = [...trozo.matchAll(/-?\d+(?:\.\d+)?/g)].map((m) => parseFloat(m[0]));
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (let i = 0; i + 1 < nums.length; i += 2) {
+      x0 = Math.min(x0, nums[i]); x1 = Math.max(x1, nums[i]);
+      y0 = Math.min(y0, nums[i + 1]); y1 = Math.max(y1, nums[i + 1]);
+    }
+    const toca =
+      x1 >= MEDALLON.x && x0 <= MEDALLON.x2 && y1 >= MEDALLON.y && y0 <= MEDALLON.y2;
+    (toca ? dentro : fuera).push(trozo.trim());
+  }
+  return { dentro: dentro.join(""), fuera: fuera.join("") };
+}
+
+/**
+ * Pinta una capa dejando el medallón intacto: la parte de adentro queda en
+ * el color original y solo la de afuera cambia.
+ */
+function pintarFueraDelMedallon(svg, hexOriginal, hexNuevo, nombre) {
+  const re = new RegExp(`<path fill="${hexOriginal}"[^>]*\\sd="([^"]+)"[^>]*/>`);
+  const m = svg.match(re);
+  if (!m) {
+    throw new Error(
+      `El SVG base no tiene la capa "${nombre}" (${hexOriginal}).\n` +
+        "Regenerá el logo con:  python marca/tools/vectorizar.py"
+    );
+  }
+  const { dentro, fuera } = separarPorMedallon(m[1]);
+  if (!dentro || !fuera) {
+    throw new Error(
+      `La capa "${nombre}" no se pudo separar por el medallón. Revisá data-medallon.`
+    );
+  }
+  return svg.replace(
+    m[0],
+    `<path fill="${hexOriginal}" fill-rule="evenodd" d="${dentro}"/>` +
+      `<path fill="${hexNuevo}" fill-rule="evenodd" d="${fuera}"/>`
+  );
 }
 
 function encabezado(titulo, uso, relleno, cuerpo) {
@@ -67,7 +141,7 @@ const cuerpoSvg = base.slice(base.indexOf("<svg"));
    Solo la capa tinta pasa a blanco. El salmón se queda igual porque sí
    se lee sobre oscuro, y el blanco ya es blanco.
    Así la figura izquierda se destaca sin romper el medallón. */
-const reversa = pintarCapa(cuerpoSvg, TINTA, BLANCO, "tinta");
+const reversa = pintarFueraDelMedallon(cuerpoSvg, TINTA, BLANCO, "tinta");
 writeFileSync(
   resolve(LOGO, "sanluis3-logo-reversa.svg"),
   encabezado(
@@ -158,7 +232,7 @@ writeFileSync(
 /* ---------- 4 · SÍMBOLO REVERSO · para fondo oscuro ----------
    Solo la tinta pasa a blanco. Sobre fondo tinta el personaje azul
    se confunde con el fondo y desaparece. */
-const simboloReversa = pintarCapa(recortarSimbolo(cuerpoSvg), TINTA, BLANCO, "tinta");
+const simboloReversa = pintarFueraDelMedallon(recortarSimbolo(cuerpoSvg), TINTA, BLANCO, "tinta");
 writeFileSync(
   resolve(LOGO, "sanluis3-simbolo-reversa.svg"),
   encabezado(
@@ -174,7 +248,7 @@ writeFileSync(
    El problema inverso: sobre una superficie salmón, las figuras y el
    balón de básquetbol del logo se funden con el fondo. Aquí el salmón
    pasa a tinta, y queda un logo de dos tonos que contrasta bien. */
-const simboloTinta = pintarCapa(recortarSimbolo(cuerpoSvg), SALMON, TINTA, "salmon");
+const simboloTinta = pintarFueraDelMedallon(recortarSimbolo(cuerpoSvg), SALMON, TINTA, "salmon");
 writeFileSync(
   resolve(LOGO, "sanluis3-simbolo-tinta.svg"),
   encabezado(

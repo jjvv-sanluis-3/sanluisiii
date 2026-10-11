@@ -153,11 +153,38 @@ def main():
             if hueco >= 15:  # 15 px de aire = termina el emblema
                 break
 
+    # Medallon: el circulo con las tres pelotas. Se mide con el contorno
+    # blanco mas grande de la mitad superior del emblema.
+    #
+    # Se mide y se exporta porque el medallon es AUTONOMO: tiene disco
+    # blanco propio, asi que debe verse igual sobre cualquier fondo. Al
+    # pintar de blanco la capa tinta, las pelotas de futbol y voleibol se
+    # fundian con ese disco y el medallon perdia su dibujo. Con esta
+    # medida, las variantes de color solo repintan lo que esta FUERA.
+    EMB = np.zeros_like(opaco)
+    EMB[:borde, :] = True
+    solo_blanco = ((rgb > 235).all(axis=2)) & opaco & EMB
+
+    medallon = None
+    cc, _ = cv2.findContours(solo_blanco.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if cc:
+        mayor = max(cc, key=lambda c: abs(cv2.contourArea(c)))
+        if abs(cv2.contourArea(mayor)) > 20000:
+            mrx = int(mayor[:, 0, 0].min())
+            mry = int(mayor[:, 0, 1].min())
+            mrw = int(mayor[:, 0, 0].max() - mrx)
+            mrh = int(mayor[:, 0, 1].max() - mry)
+            medallon = (mrx, mry, mrw, mrh)
+
     partes = [
         '<svg xmlns="http://www.w3.org/2000/svg"',
         f'     viewBox="0 0 {ancho} {alto}" width="{ancho}" height="{alto}"',
         f'     data-bbox="{bx} {by} {bw} {bh}"',
         f'     data-emblem-bottom="{borde}"',
+    ]
+    if medallon:
+        partes.append(f'     data-medallon="{medallon[0]} {medallon[1]} {medallon[2]} {medallon[3]}"')
+    partes += [
         '     role="img" aria-label="Junta de Vecinos San Luis III, Maipú">',
         "  <title>JJVV San Luis III, logotipo</title>",
     ]
