@@ -1,0 +1,34 @@
+backend:
+  name: github
+  repo: jjvv-san-luis-3/sanluisiii
+  branch: main
+  base_url: https://jjvv-san-luis-3.github.io
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "eventos"
+    label: "Eventos"
+    label_singular: "Evento"
+    folder: "content/eventos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{titulo}} — {{fecha | date: 'DD/MM/YYYY'}}"
+    fields:
+      - { label: "Título del evento", name: "titulo", widget: "string", hint: "Ej: Fútbol comunitario, Taller de murales, etc." }
+      - { label: "Fecha y hora", name: "fecha", widget: "datetime", date_format: "DD/MM/YYYY", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ss" }
+      - { label: "Imagen del evento", name: "imagen", widget: "image", required: false, hint: "Sube una imagen representativa del evento (opcional)" }
+      - { label: "Ubicación", name: "ubicacion", widget: "string", required: false, hint: "Ej: Multicancha San Luis III, Sede vecinal, etc." }
+      - { label: "Descripción", name: "descripcion", widget: "markdown", hint: "Describe el evento: qué hará, quién puede participar, qué traer, etc." }
+
+  - name: "galeria"
+    label: "Galería"
+    label_singular: "Imagen"
+    folder: "content/galeria"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Título", name: "titulo", widget: "string", hint: "Ej: Mural comunitario 2026, Partido de fútbol, etc." }
+      - { label: "Imagen", name: "imagen", widget: "image", hint: "Sube la imagen a la galería" }
+      - { label: "Descripción", name: "descripcion", widget: "text", required: false, hint: "Breve descripción de la imagen (opcional)" }
