@@ -1,0 +1,20 @@
+<!--
+  JJVV SAN LUIS III · Marca (símbolo)
+  Skill de referencia: brandkit (método "Construction Geometry" + "Negative Space")
+  Concepto: tres vecinos (tres figuras) reunidos por un arco que los abraza.
+  "El barrio somos tres, y todos."
+
+  Uso: ícono de app, avatar de redes, sello, favicon grande.
+  NO usar por debajo de 24 px (usar la marca simplificada o el avatar).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-label="Junta de Vecinos San Luis III">
+  <title>JJVV San Luis III — marca</title>
+  <g fill="#fa8072">
+    <circle cx="14"  cy="26" r="6.5"/>
+    <circle cx="50"  cy="26" r="6.5"/>
+    <circle cx="32"  cy="20" r="8"/>
+  </g>
+  <path d="M8 38c4 11 13 16 24 16s20-5 24-16"
+        fill="none" stroke="#fa8072" stroke-width="5.5" stroke-linecap="round"/>
+</svg>

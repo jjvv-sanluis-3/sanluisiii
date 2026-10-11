@@ -1,0 +1,185 @@
+/* ============================================================
+   JJVV SAN LUIS III · Base de plantillas sociales
+   Skill de referencia: design (Social Photos) + brandkit
+   Los tokens vienen de ../tokens/tokens.css — NUNCA escribir
+   un color o una fuente sueltos en una plantilla.
+
+   Todas las medidas están en px porque estas piezas se
+   exportan a un tamaño exacto de píxel (1080×1080, etc.).
+   ============================================================ */
+
+@import url("../../tokens/tokens.css");
+
+/* ---------- Reset del lienzo ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: transparent;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* El lienzo es el tamaño exacto que se exporta */
+.canvas {
+  position: relative;
+  overflow: hidden;
+  width: 1080px;
+  height: 1080px;
+}
+
+/* ---------- Fondos del sistema ---------- */
+.bg-cream { background: var(--color-surface-alt); }
+.bg-white { background: var(--color-surface); }
+.bg-ink   { background: var(--color-surface-dark); color: var(--color-text-inverse); }
+.bg-salmon{ background: var(--color-surface-brand); color: var(--ink-900); }
+
+/* Anillo decorativo: el gesto del logo (tres figuras + arco) */
+.ring {
+  position: absolute;
+  border: 3px solid rgba(250, 128, 114, .35);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bg-ink .ring { border-color: rgba(255, 209, 102, .30); }
+
+/* ---------- Marca / logotipo dentro de la pieza ---------- */
+.brandmark {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.brandmark svg { display: block; }
+.brandmark .brand-text {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+.brandmark .brand-text small {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+}
+.bg-ink .brandmark .brand-text { color: #fff; }
+.bg-ink .brandmark .brand-text small { color: var(--ink-300); }
+
+/* Sólo el símbolo */
+.mark { display: block; }
+
+/* ---------- Etiqueta superior (eyebrow) ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-brand);
+}
+.eyebrow::before {
+  content: "";
+  width: 46px;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--color-primary);
+}
+.bg-ink .eyebrow { color: var(--yellow-300); }
+.bg-ink .eyebrow::before { background: var(--yellow-400); }
+
+/* ---------- Títulos ---------- */
+.title {
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--color-text);
+}
+.bg-ink .title { color: #fff; }
+.bg-salmon .title { color: var(--ink-900); }
+
+.subtitle {
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+.bg-ink .subtitle { color: var(--ink-200); }
+
+/* ---------- Chips de dato (fecha · hora · lugar) ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 30px;
+  border-radius: var(--radius-pill);
+  background: var(--chip-bg);
+  color: var(--color-text-brand);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.chip.solid {
+  background: var(--color-primary-strong);
+  color: #fff;
+}
+.chip.ghost {
+  background: transparent;
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+}
+.bg-ink .chip.ghost { border-color: rgba(255,255,255,.3); color: #fff; }
+
+.chips { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* ---------- Llamada a la acción ---------- */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 40px;
+  border-radius: var(--radius-pill);
+  background: var(--ink-900);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 800;
+}
+.bg-salmon .cta { background: var(--ink-900); color: #fff; }
+
+/* ---------- Pie: firma / url ---------- */
+.sign {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+}
+.bg-ink .sign { color: var(--ink-300); }
+
+/* ---------- Número de página / detalle fino (brandkit) ---------- */
+.detail {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  opacity: .75;
+}
+
+/* ---------- Rejilla de tres figuras (recurrencia del logo) ---------- */
+.tres {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+.tres i {
+  display: block;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+.tres i:nth-child(1), .tres i:nth-child(3) { width: 34px; height: 34px; }
+.tres i:nth-child(2) { width: 42px; height: 42px; }
+.bg-ink .tres i { background: var(--yellow-400); }
