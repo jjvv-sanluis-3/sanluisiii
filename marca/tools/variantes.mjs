@@ -136,9 +136,8 @@ function recortarSimbolo(svg) {
   return (
     meta +
     aperturaNueva +
-    contenido +
-    `\n  <clipPath id="recorte"><rect x="${bx}" y="${by}" width="${bw}" height="${alto}"/></clipPath>\n` +
-    `  <g clip-path="url(#recorte)">` +
+    `\n  <clipPath id="recorte"><rect x="${bx}" y="${by}" width="${bw}" height="${alto}"/></clipPath>` +
+    `\n  <g clip-path="url(#recorte)">` +
     contenido +
     `</g>\n</svg>\n`
   );

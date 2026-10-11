@@ -47,13 +47,24 @@ CAPAS = [
     ("blanco", BLANCO, 70),
 ]
 
-# Suavizado Douglas-Peucker. 1.2 px sobre una imagen de 1254 px conserva
-# el detalle sin generar miles de vértices.
-EPSILON = 1.2
-# Chaikin: 1 ronda basta. Con 2, las esquinas agudas de las letras
-# (la V de JJVV, el gancho de la J) se redondeaban y el texto se veía
-# tembloroso al compararlo con el original.
-RONDAS_SUAVIZADO = 1
+# --- Parámetros de trazado (se pueden pasar por línea de comandos) ---
+#   python vectorizar.py [epsilon] [rondas_chaikin]
+#
+# EPSILON es cuánto se permite desviarse la línea del contorno real, en
+# píxeles. Se probaron 1.2 / 0.5 / 0.3: con 1.2 las curvas de las letras
+# salían facetadas y el gancho de la "J" y la punta de la "V" se veían
+# angulosos. 0.5 sigue el trazo real; 0.3 no se ve mejor y duplica el peso.
+#
+# RONDAS_SUAVIZADO (Chaikin) redondea esquinas. Con 1 o más, el vértice de
+# la "V" de JJVV perdía la punta y las curvas quedaban infladas. Con 0 el
+# contorno queda fiel al original.
+EPSILON = 0.5
+RONDAS_SUAVIZADO = 0
+
+if len(sys.argv) > 1:
+    EPSILON = float(sys.argv[1])
+if len(sys.argv) > 2:
+    RONDAS_SUAVIZADO = int(sys.argv[2])
 
 
 def suavizar(puntos, rondas):

@@ -46,6 +46,19 @@ function problemas(texto) {
   const abren = (texto.match(/<g[\s>]/g) || []).length;
   const cierran = (texto.match(/<\/g>/g) || []).length;
   if (abren !== cierran) errs.push(`<g> sin cerrar: ${abren} abren, ${cierran} cierran`);
+
+  // Contenido repetido: pasó una vez al agregar el clipPath del recorte y
+  // cada forma salía dibujada dos veces, con el emblema y su silueta
+  // fantasma detrás. Esta comprobación evita que vuelva a colarse.
+  const ds = [...texto.matchAll(/\sd="([^"]{80,})"/g)].map((x) => x[1]);
+  const vistos = new Set();
+  for (const d of ds) {
+    if (vistos.has(d)) {
+      errs.push("hay una forma dibujada dos veces (contenido duplicado)");
+      break;
+    }
+    vistos.add(d);
+  }
   return errs;
 }
 
