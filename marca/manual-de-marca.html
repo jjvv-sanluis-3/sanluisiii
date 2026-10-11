@@ -275,6 +275,47 @@ pre code{background:none;color:inherit;padding:0}
     tinta se pierde. Por eso existe la versión blanca.</p>
   </div>
 
+  <div class="ojo">
+    <p><strong>Y hay que cambiar la versión según el fondo.</strong> Con la versión
+    a color: sobre crema o blanco se ve bien, pero sobre tinta desaparece la
+    figura izquierda, y sobre salmón se pierden las figuras y el balón de
+    básquetbol. Nunca uses la misma versión sobre fondos distintos.</p>
+  </div>
+
+  <table>
+    <thead><tr><th>El fondo es…</th><th>Usa esta versión</th><th>Por qué</th></tr></thead>
+    <tbody>
+      <tr><td>Crema o blanco</td><td>La de color</td><td>Los tres colores contrastan</td></tr>
+      <tr><td>Tinta (oscuro)</td><td>La reversa (en blanco)</td><td>La figura tinta se perdería</td></tr>
+      <tr><td>Salmón</td><td>La versión en tinta</td><td>El salmón del logo se fundiría</td></tr>
+      <tr><td>16 a 64 px (favicon)</td><td>La reducción aparte</td><td>A ese tamaño todo se ve como manchas</td></tr>
+    </tbody>
+  </table>
+
+  <h3>El favicon es otra pieza</h3>
+  <p>El favicon <strong>no es un recorte del logo</strong>: es una reducción
+  dibujada aparte. Conserva el medallón claro y las tres pelotas, y saca las
+  costuras, los brazos y el texto. Se probaron tres recortes reales del emblema
+  y ninguno servía: a 16 píxeles las pelotas y las costuras se convierten en
+  manchas grises.</p>
+
+  <div class="dos">
+    <div class="caso">
+      <div class="lienzo" style="background:var(--ink-900)">
+        <img src="logo/favicon.svg" alt="Favicon" style="width:110px;height:110px;border-radius:24px">
+      </div>
+      <div class="pie"><b>Así se ve de verdad</b> en la pestaña del navegador.</div>
+    </div>
+    <div class="caso">
+      <div class="lienzo" style="background:var(--ink-900);gap:14px;flex-wrap:wrap">
+        <img src="logo/favicon.svg" alt="" style="width:16px;height:16px">
+        <img src="logo/favicon.svg" alt="" style="width:32px;height:32px">
+        <img src="logo/favicon.svg" alt="" style="width:48px;height:48px">
+      </div>
+      <div class="pie">A 16, 32 y 48 px se sigue reconociendo el medallón.</div>
+    </div>
+  </div>
+
   <h3>Zona de respeto y tamaño mínimo</h3>
   <ul>
     <li><strong>Zona de respeto:</strong> alrededor del logo, un espacio libre

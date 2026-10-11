@@ -39,35 +39,47 @@ const C = {
 
 /* ------------------------------------------------------------------
    2 · LOGO INLINEADO
-   Se lee el SVG real del disco. Nunca se copia el trazado a mano:
+   Se leen los SVG reales del disco. Nunca se copia el trazado a mano:
    así el logo de las publicaciones nunca queda viejo.
-   ------------------------------------------------------------------ */
-const simboloRaw = readFileSync(resolve(RAIZ, "marca", "logo", "sanluis3-simbolo.svg"), "utf8");
-const VIEWBOX = simboloRaw.match(/viewBox="([^"]+)"/)[1];
-// El trazado automático emite varios <path> (uno por capa de color),
-// así que se toma todo el contenido del svg, sin el etiqueta de cierre.
-const CONTENIDO = simboloRaw.slice(
-  simboloRaw.indexOf(">", simboloRaw.indexOf("<svg")) + 1,
-  simboloRaw.lastIndexOf("</svg>")
-);
 
+   IMPORTANTE: hay que elegir la versión que contraste con el fondo.
+   Con la de color sobre superficie tinta se pierde la figura izquierda;
+   sobre superficie salmón se pierden las figuras y el balón de
+   básquetbol. Por eso existen tres versiones del símbolo.
+   ------------------------------------------------------------------ */
+const VARIANTES = {
+  color: "sanluis3-simbolo.svg",            // crema o blanco
+  reversa: "sanluis3-simbolo-reversa.svg",   // tinta
+  tinta: "sanluis3-simbolo-tinta.svg",       // salmón
+};
+
+const SIMBOLOS = {};
+for (const [clave, archivo] of Object.entries(VARIANTES)) {
+  const raw = readFileSync(resolve(RAIZ, "marca", "logo", archivo), "utf8");
+  SIMBOLOS[clave] = {
+    viewBox: raw.match(/viewBox="([^"]+)"/)[1],
+    contenido: raw.slice(raw.indexOf(">", raw.indexOf("<svg")) + 1, raw.lastIndexOf("</svg>")),
+  };
+}
+
+const VIEWBOX = SIMBOLOS.color.viewBox;
 /** Se pide la ALTURA y el ancho sale del viewBox. Fijar el ancho a mano
     fue justo lo que se rompió cuando el símbolo cambió de proporción. */
 const [, , VW, VH] = VIEWBOX.split(/\s+/).map(Number);
 const ASPECTO = VW / VH;
 
-function logo(alto, opciones = {}) {
-  const { clase = "" } = opciones;
-  return `<svg class="${clase}" viewBox="${VIEWBOX}" width="${Math.round(alto * ASPECTO)}"
+function logo(alto, variante = "color") {
+  const v = SIMBOLOS[variante];
+  if (!v) throw new Error(`Variante de logo desconocida: "${variante}"`);
+  return `<svg viewBox="${v.viewBox}" width="${Math.round(alto * ASPECTO)}"
        height="${alto}" role="img"
-       aria-label="Junta de Vecinos San Luis III">${CONTENIDO}</svg>`;
+       aria-label="Junta de Vecinos San Luis III">${v.contenido}</svg>`;
 }
 
 /** Lockup horizontal: símbolo + nombre, para Encabezados. */
-function lockup(alto, opciones = {}) {
-  const { clase = "" } = opciones;
-  return `<div class="brandmark ${clase}">
-        ${logo(alto)}
+function lockup(alto, variante = "color") {
+  return `<div class="brandmark">
+        ${logo(alto, variante)}
         <span class="brand-text">Junta de Vecinos<small>SAN LUIS III · MAIPÚ</small></span>
       </div>`;
 }
@@ -114,7 +126,7 @@ const PIEZAS = {
 
   <div style="position:absolute;inset:72px;display:flex;flex-direction:column">
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
-      ${lockup(62, { id: "p1" })}
+      ${lockup(62, "color")}
       <span class="detail">01 / Evento</span>
     </div>
 
@@ -149,7 +161,7 @@ const PIEZAS = {
   <div class="ring" style="width:560px;height:560px;right:-260px;bottom:-220px"></div>
 
   <div style="position:absolute;inset:80px;display:flex;flex-direction:column">
-    ${lockup(64, { id: "p2" })}
+    ${lockup(64, "reversa")}
 
     <div style="margin-top:110px">
       <span class="eyebrow">Es este jueves</span>
@@ -182,7 +194,7 @@ const PIEZAS = {
 
   <div style="position:absolute;inset:76px;display:flex;flex-direction:column">
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
-      ${lockup(60, { id: "p3" })}
+      ${lockup(60, "tinta")}
       <span class="detail" style="color:rgba(30,48,54,.62)">Desliza →</span>
     </div>
 
@@ -225,7 +237,7 @@ const PIEZAS = {
     <span class="chip ghost">${C.fecha}</span>
 
     <div style="margin-top:60px;display:flex;align-items:center;gap:22px">
-      ${logo(74)}
+      ${logo(74, "reversa")}
       <span class="sign">${C.firma}</span>
     </div>
   </div>
@@ -242,7 +254,7 @@ const PIEZAS = {
     cuerpo: `<div class="canvas">
   <div class="split">
     <div style="background:var(--color-surface);padding:62px 60px;display:flex;flex-direction:column">
-      ${lockup(46, { id: "p5" })}
+      ${lockup(46, "color")}
       <h1 class="title" style="font-size:64px;margin-top:auto">${C.evento}</h1>
       <p style="font-size:22px;line-height:1.5;color:var(--color-text-muted);margin-top:18px;max-width:46ch">${C.bajada}</p>
       <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
@@ -253,7 +265,7 @@ const PIEZAS = {
 
     <div style="background:var(--color-surface-brand);display:grid;place-items:center;position:relative">
       <div class="ring" style="width:420px;height:420px;border-color:rgba(30,48,54,.2)"></div>
-      ${logo(253)}
+      ${logo(253, "tinta")}
     </div>
   </div>
 </div>`,
@@ -270,7 +282,7 @@ const PIEZAS = {
   <div class="ring" style="width:520px;height:520px;left:-260px;top:-190px"></div>
   <div class="ring" style="width:360px;height:360px;right:-180px;bottom:-160px"></div>
   <div class="cover">
-    ${lockup(84, { id: "p6" })}
+    ${lockup(84, "reversa")}
     <p style="font-size:21px;color:var(--ink-200);max-width:34ch">El barrio cambia cuando nos movemos juntos.</p>
     <span class="detail" style="color:var(--ink-300)">Maipú · San Luis III</span>
   </div>
@@ -287,7 +299,7 @@ const PIEZAS = {
     cuerpo: `<div class="canvas bg-cream">
   <div class="hero">
     <div style="padding:0 110px;display:flex;flex-direction:column;justify-content:center">
-      ${lockup(52, { id: "p7" })}
+      ${lockup(52, "color")}
       <span class="eyebrow" style="margin-top:48px">Agenda del barrio</span>
       <h1 class="title" style="font-size:86px;margin-top:26px;max-width:16ch">${C.evento}</h1>
       <div class="chips" style="margin-top:34px">
@@ -298,7 +310,7 @@ const PIEZAS = {
 
     <div style="background:var(--color-surface-dark);position:relative;display:grid;place-items:center">
       <div class="ring" style="width:620px;height:620px;border-color:rgba(255,209,102,.24)"></div>
-      ${logo(287)}
+      ${logo(287, "reversa")}
     </div>
   </div>
 </div>`,
@@ -335,7 +347,7 @@ const PIEZAS = {
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:36px">
       <span style="font-size:24px;font-weight:800;color:var(--ink-900)">${C.cta}</span>
-      ${logo(52)}
+      ${logo(52, "tinta")}
     </div>
   </div>
 </div>`,

@@ -126,10 +126,27 @@ def main():
     bw = min(ancho, x1 + margen) - bx
     bh = min(alto, y1 + margen) - by
 
+    # Borde inferior del emblema (hasta antes de la fila de texto "JJVV").
+    # Se mide buscando la primera franja horizontal vacía. Hardcodear un
+    # porcentaje del lienzo cortaba 31 px de la parte de abajo del medallón.
+    filas = (alfa > 128).sum(axis=1) > 0
+    banda_ini = int(np.argmax(filas))
+    borde = banda_ini
+    hueco = 0
+    for y in range(banda_ini, alto):
+        if filas[y]:
+            borde = y
+            hueco = 0
+        else:
+            hueco += 1
+            if hueco >= 15:  # 15 px de aire = termina el emblema
+                break
+
     partes = [
         '<svg xmlns="http://www.w3.org/2000/svg"',
         f'     viewBox="0 0 {ancho} {alto}" width="{ancho}" height="{alto}"',
         f'     data-bbox="{bx} {by} {bw} {bh}"',
+        f'     data-emblem-bottom="{borde}"',
         '     role="img" aria-label="Junta de Vecinos San Luis III, Maipú">',
         "  <title>JJVV San Luis III, logotipo</title>",
     ]

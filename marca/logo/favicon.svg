@@ -1,17 +1,43 @@
 <!--
-  JJVV SAN LUIS III · Favicon
-  Misma marca sobre cuadrado redondeado, versión 64×64.
-  (El sitio web hoy lleva este mismo favicon embebido como data-URI en index.html)
+  JJVV SAN LUIS III · FAVICON
+  ·
+  Reducción de diseño del logotipo original para tamaños muy
+  pequeños (pestaña del navegador, 16 a 64 px).
+
+  POR QUÉ NO ES UN RECORTE DEL LOGO
+    Se probaron tres recortes reales del emblema original
+    (el medallón, el emblema medio y el emblema entero) y ninguno
+    funciona: a 16 px las pelotas, las costuras y las letras se
+    convierten en manchas grises. Un favicon no puede ser un logo
+    reducido: tiene que ser una reducción.
+
+  QUÉ SE CONSERVÓ DEL ORIGINAL
+    · el medallón: el círculo claro que centra el emblema
+    · las tres pelotas, en el mismo triángulo del original
+      (una arriba, dos abajo)
+    · los colores de marca: salmón y tinta
+
+  QUÉ SE SACÓ
+    las costuras de las pelotas, los brazos de las figuras y el
+    texto, que son lo que no sobrevive a 16 px.
+
+  USO
+    · 16 a 64 px  → este archivo
+    · 120 px o más → sanluis3-simbolo.svg o sanluis3-logo-completo.svg
 -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
-     role="img" aria-label="JJVV San Luis III">
-  <title>JJVV San Luis III — favicon</title>
-  <rect width="64" height="64" rx="14" fill="#fa8072"/>
-  <g fill="#ffffff">
-    <circle cx="14" cy="26" r="6.5"/>
-    <circle cx="50" cy="26" r="6.5"/>
-    <circle cx="32" cy="20" r="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"
+     role="img" aria-label="Junta de Vecinos San Luis III">
+  <title>JJVV San Luis III</title>
+
+  <rect width="512" height="512" rx="112" fill="#fc6c5a"/>
+
+  <!-- El medallón del emblema -->
+  <circle cx="256" cy="256" r="172" fill="#ffffff"/>
+
+  <!-- Las tres pelotas, en el mismo triángulo del logo original -->
+  <g fill="#1e3036">
+    <circle cx="256" cy="190" r="48"/>
+    <circle cx="190" cy="310" r="48"/>
+    <circle cx="322" cy="310" r="48"/>
   </g>
-  <path d="M8 38c4 11 13 16 24 16s20-5 24-16"
-        fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
 </svg>

@@ -26,22 +26,33 @@ const RAIZ = resolve(HERE, "..", "..");
 const SALIDA = resolve(RAIZ, "marca", "board");
 mkdirSync(SALIDA, { recursive: true });
 
-/* ---------- logo inlineado desde el SVG real ---------- */
-const simboloRaw = readFileSync(resolve(RAIZ, "marca", "logo", "sanluis3-simbolo.svg"), "utf8");
-const VIEWBOX = simboloRaw.match(/viewBox="([^"]+)"/)[1];
-// El trazado automático emite varios <path>, uno por capa de color.
-const CONTENIDO = simboloRaw.slice(
-  simboloRaw.indexOf(">", simboloRaw.indexOf("<svg")) + 1,
-  simboloRaw.lastIndexOf("</svg>")
-);
+/* ---------- logo inlineado desde el SVG real ----------
+   Igual que en las plantillas: la versión del logo depende del fondo
+   del panel, o el personaje se pierde. */
+const VARIANTES = {
+  color: "sanluis3-simbolo.svg",            // crema o blanco
+  reversa: "sanluis3-simbolo-reversa.svg",   // tinta
+  tinta: "sanluis3-simbolo-tinta.svg",       // salmón
+};
+const SIMBOLOS = {};
+for (const [clave, archivo] of Object.entries(VARIANTES)) {
+  const raw = readFileSync(resolve(RAIZ, "marca", "logo", archivo), "utf8");
+  SIMBOLOS[clave] = {
+    viewBox: raw.match(/viewBox="([^"]+)"/)[1],
+    contenido: raw.slice(raw.indexOf(">", raw.indexOf("<svg")) + 1, raw.lastIndexOf("</svg>")),
+  };
+}
 
+const VIEWBOX = SIMBOLOS.color.viewBox;
 /** Se pide la ALTURA; el ancho sale del viewBox, para que un cambio de
     proporción del símbolo no obligue a tocar cada tamaño a mano. */
 const [, , VW, VH] = VIEWBOX.split(/\s+/).map(Number);
 const ASPECTO = VW / VH;
 
-function logo(alto) {
-  return `<svg viewBox="${VIEWBOX}" width="${Math.round(alto * ASPECTO)}" height="${alto}">${CONTENIDO}</svg>`;
+function logo(alto, variante = "color") {
+  const v = SIMBOLOS[variante];
+  if (!v) throw new Error(`Variante de logo desconocida: "${variante}"`);
+  return `<svg viewBox="${v.viewBox}" width="${Math.round(alto * ASPECTO)}" height="${alto}">${v.contenido}</svg>`;
 }
 
 const html = `<!doctype html>
@@ -164,7 +175,7 @@ body{font-family:var(--font-body);background:var(--ink-900);color:#fff;
         <span class="url">jjvv-sanluis-3.github.io/sanluisiii</span></div>
       <div style="padding:26px;display:flex;flex-direction:column;gap:18px;flex:1">
         <div style="display:flex;align-items:center;gap:14px">
-          ${logo(34)}
+          ${logo(34, "color")}
           <div>
             <div style="font-family:var(--font-display);font-weight:900;font-size:19px">San Luis III</div>
             <div style="font-size:11px;letter-spacing:.16em;font-weight:700;opacity:.6">JUNTA DE VECINOS</div>
@@ -227,7 +238,7 @@ body{font-family:var(--font-body);background:var(--ink-900);color:#fff;
   <!-- 7 · APLICACIÓN FÍSICA -->
   <div class="panel salmon">
     <span class="num">07</span><span class="et">Físico</span>
-    <div class="sticker">${logo(127)}</div>
+    <div class="sticker">${logo(127, "tinta")}</div>
     <div class="lbl" style="margin-top:auto;color:var(--ink-900)">Sticker · sello</div>
   </div>
 
@@ -235,10 +246,10 @@ body{font-family:var(--font-body);background:var(--ink-900);color:#fff;
   <div class="panel oscuro">
     <span class="num">08</span><span class="et">Dirección</span>
     <div class="patrono">
-      <div>${logo(63)}</div>
-      <div>${logo(63)}</div>
-      <div>${logo(63)}</div>
-      <div>${logo(63)}</div>
+      ${logo(63, "reversa")}</div>
+      ${logo(63, "reversa")}</div>
+      ${logo(63, "reversa")}</div>
+      ${logo(63, "reversa")}</div>
     </div>
     <div style="margin-top:auto">
       <div class="lbl" style="margin-bottom:12px">Fotografía</div>

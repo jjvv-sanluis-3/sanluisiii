@@ -83,19 +83,20 @@ después de la primera vez.
 
 ## Dos tamaños de símbolo (no es una contradicción)
 
-En la carpeta `logo/` conviven dos formas del símbolo, y cada una sirve para
-una cosa distinta:
+El logo tiene más detalle del que entra en un favicon, así que hay dos
+versiones y cada una va en su lugar:
 
-- **`sanluis3-logo-completo.svg`** es el logotipo real, con las pelotas y el
-  nombre. Se usa desde unos **120 px** de ancho hacia arriba, y en impresión.
-- **`favicon.svg`** es una versión **reducida**: solo las tres figuras y el
-  arco, sin pelotas ni texto. A 16 o 32 píxeles las pelotas y las letras se
-  convierten en manchas, así que el favicon tiene que ser este, no el logo
-  entero. Es el que usa el sitio en la pestaña del navegador.
+- **`sanluis3-simbolo.svg`** es el emblema real, con las figuras, las pelotas y
+  todo el detalle. Se usa desde unos **120 px** de ancho hacia arriba, y en
+  impresión.
+- **`favicon.svg`** es una **reducción**, no un recorte: conserva el medallón
+  claro y las tres pelotas, y saca las costuras, los brazos y el texto, que es
+  justamente lo que a 16 px se convierte en manchas. Va en la pestaña del
+  navegador y en tamaños de 16 a 64 px.
 
-Lo mismo pasa con `sanluis3-marca.svg`, `sanluis3-avatar.svg` y
-`sanluis3-horizontal.svg`: son las versiones simplificadas para avatar y
-firmas, y se dejan a propósito para no perder el material ya hecho.
+Se probaron recortes reales del emblema para el favicon y ninguno funcionaba:
+a 16 px todo se ve como una mancha gris. Por eso el favicon es una reducción
+dibujada a medida, no un recorte.
 
 ## Decisiones que ya están tomadas
 
