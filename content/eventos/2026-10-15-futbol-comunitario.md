@@ -1,7 +1,6 @@
 ---
 titulo: "Fútbol comunitario"
 fecha: "2026-10-15T17:00:00"
-imagen: "/uploads/ejemplo-futbol.jpg"
 ubicacion: "Multicancha San Luis III"
 descripcion: |
   Encuentro de fútbol comunitario para jóvenes y familias del sector.

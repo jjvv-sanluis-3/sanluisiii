@@ -123,7 +123,10 @@
           const db=b.data.fecha?new Date(b.data.fecha):new Date(0);
           return da-db;
         });
-        grid.innerHTML=items.map(renderFn).join('');
+        const html=items.map(renderFn).join('');
+        grid.innerHTML=html||(grid.classList.contains('events-grid')
+          ?'<p class="event-empty">No hay eventos publicados por ahora. ¡Nos vemos pronto!</p>'
+          :'<p class="galeria-empty">Aún no hay imágenes en la galería.</p>');
       }catch(e){
         grid.innerHTML='<p class="event-empty">No se pudo cargar el contenido. Intenta recargar la página.</p>';
       }
@@ -137,9 +140,9 @@
     }
 
     function renderGallery({data, body}){
-      const img=data.imagen?`<img src="${data.imagen}" alt="${data.titulo||''}" loading="lazy">`:'';
+      if(!data.imagen) return '';
       const cap=data.descripcion?`<figcaption>${data.descripcion}</figcaption>`:'';
-      return `<figure class="galeria-item">${img}${cap}</figure>`;
+      return `<figure class="galeria-item"><img src="${data.imagen}" alt="${data.titulo||''}" loading="lazy">${cap}</figure>`;
     }
 
     loadCollection('content/eventos','events-grid',renderEvent);
