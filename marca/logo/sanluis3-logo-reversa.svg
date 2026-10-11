@@ -1,0 +1,132 @@
+<!--
+  JJVV SAN LUIS III · LOGOTIPO REVERSA (fondo oscuro)
+  Generado por marca/tools/variantes.mjs. No editar a mano.
+
+  USO: sitios con fondo tinta o salmón: pie de página, portadas oscuras,
+       historias de Instagram con fondo oscuro. Nunca sobre fondo claro.
+  QUÉ CAMBIA: solo la figura izquierda y el nombre "JJVV" pasan a blanco.
+  El medallón con las pelotas se mantiene tal cual, porque va sobre fondo claro.
+-->
+<!--
+  JJVV SAN LUIS III · LOGOTIPO PRINCIPAL (reconstrucción vectorial)
+  Vectorización de "logo-san-luis-iii.png" (1254×1254 px).
+
+  POR QUÉ EXISTE ESTA VERSIÓN
+    El archivo original es un PNG de 1254 px: se ve borroso impreso,
+    no sirve para fondo oscuro, ni en un solo color, ni para bordado.
+    Este SVG es el mismo logotipo con la geometría limpia: se ve
+    nítido a cualquier tamaño y se puede teñir de un solo color.
+
+  CONCEPTO (método "Construction Geometry" de la skill brandkit)
+    Tres figuras con los brazos en alto = San Luis III (tres vecinos).
+    En el círculo central, las tres pelotas = los tres deportes del
+    barrio: fútbol, vóley y básquetbol.
+
+  COLORES CANÓNICOS (muestreados del PNG original, no estimados)
+    Salmón  #FC6C5A      Tinta  #1E3036
+
+  RELLENO
+    · Fondo claro (crema, blanco) → este archivo tal cual
+    · Fondo oscuro (tinta, salmón) → sanluis3-logo-reversa.svg
+    · Impresión en un solo color → sanluis3-logo-mono.svg
+
+  ÁREA DE RESPETO: el equivalente al radio de la cabeza central
+  (≈ 24 unidades sobre este lienzo de 300) por cada lado.
+  TAMAÑO MÍNIMO: 120 px de ancho en digital / 25 mm impreso.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300"
+     role="img" aria-label="Junta de Vecinos San Luis III, Maipú">
+  <title>JJVV San Luis III, logotipo</title>
+
+  <g id="marca">
+
+    <!-- Círculo blanco que aloja las pelotas -->
+    <circle cx="150" cy="122" r="58" fill="#ffffff"/>
+
+    <defs>
+      <clipPath id="c-voley"><circle cx="150" cy="99" r="21"/></clipPath>
+      <clipPath id="c-basket"><circle cx="131" cy="143" r="21"/></clipPath>
+      <clipPath id="c-futbol"><circle cx="169" cy="143" r="21"/></clipPath>
+    </defs>
+
+    <!-- Vóleibol (arriba): costuras curvas que siguen la esfera.
+         Se usaron arcos y no líneas rectas porque las rectas
+         armaban una cuadrícula y se leía como ventana, no como balón. -->
+    <g clip-path="url(#c-voley)">
+      <circle cx="150" cy="99" r="21" fill="#ffffff" stroke="#1e3036" stroke-width="5"/>
+      <g fill="none" stroke="#1e3036" stroke-width="3.5" stroke-linecap="round">
+        <path d="M150 78c-7 9-7 33 0 42"/>
+        <path d="M150 78c7 9 7 33 0 42"/>
+        <path d="M129 91q21 11 42 0"/>
+        <path d="M129 107q21-11 42 0"/>
+      </g>
+    </g>
+
+    <!-- Básquetbol (abajo izquierda) -->
+    <g clip-path="url(#c-basket)">
+      <circle cx="131" cy="143" r="21" fill="#fc6c5a" stroke="#1e3036" stroke-width="5"/>
+      <g fill="none" stroke="#1e3036" stroke-width="3.5" stroke-linecap="round">
+        <path d="M110 143h42"/>
+        <path d="M131 122v42"/>
+        <path d="M114 129c11 9 23 9 34 0"/>
+        <path d="M114 157c11-9 23-9 34 0"/>
+      </g>
+    </g>
+
+    <!-- Fútbol (abajo derecha): pentágono central y cuatro parciales -->
+    <g clip-path="url(#c-futbol)">
+      <circle cx="169" cy="143" r="21" fill="#ffffff" stroke="#1e3036" stroke-width="5"/>
+      <path d="M169 131.5l9.3 6.8-3.6 11h-11.4l-3.6-11z" fill="#1e3036"/>
+      <g fill="#1e3036">
+        <path d="M150 124l7.4 5.3-2.8 8.9h-9.2l-2.8-8.9z"/>
+        <path d="M188 124l7.4 5.3-2.8 8.9h-9.2l-2.8-8.9z"/>
+        <path d="M159 159l7.4-4.3 2.8 8.9-7.4 5.3-7.4-5.3z"/>
+        <path d="M179 159l7.4-4.3 2.8 8.9-7.4 5.3-7.4-5.3z"/>
+      </g>
+    </g>
+
+    <!-- Aro del círculo, por encima de las pelotas: las contiene y
+         evita que el detalle se coma el borde. -->
+    <circle cx="150" cy="122" r="58" fill="none" stroke="#1e3036" stroke-width="7"/>
+
+    <!-- Figura 1 · centro (salmón), la más grande -->
+    <g fill="#fc6c5a">
+      <circle cx="150" cy="30" r="20"/>
+      <path d="M150 54c-6 0-11 4-13 10l-14-20a13 13 0 0 0-18 16l20 30
+               a12 12 0 0 0 10 5h30a12 12 0 0 0 10-5l20-30
+               a13 13 0 0 0-18-16l-14 20c-2-6-7-10-13-10z"/>
+    </g>
+
+    <!-- Figura 2 · izquierda (tinta) -->
+    <g fill="#ffffff">
+      <circle cx="74" cy="92" r="16"/>
+      <path d="M74 112c-5 0-9 3-11 8l-11-16a11 11 0 0 0-15 13l17 25
+               a10 10 0 0 0 8 4h24a10 10 0 0 0 8-4l17-25
+               a11 11 0 0 0-15-13l-11 16c-2-5-6-8-11-8z"
+            transform="rotate(-14 74 130)"/>
+    </g>
+
+    <!-- Figura 3 · derecha (salmón) -->
+    <g fill="#fc6c5a">
+      <circle cx="226" cy="92" r="16"/>
+      <path d="M226 112c-5 0-9 3-11 8l-11-16a11 11 0 0 0-15 13l17 25
+               a10 10 0 0 0 8 4h24a10 10 0 0 0 8-4l17-25
+               a11 11 0 0 0-15-13l-11 16c-2-5-6-8-11-8z"
+            transform="rotate(14 226 130)"/>
+    </g>
+  </g>
+
+  <!-- Nombre -->
+  <text x="150" y="223" text-anchor="middle"
+        font-family="Outfit, 'Plus Jakarta Sans', 'Segoe UI', sans-serif"
+        font-size="52" font-weight="900" letter-spacing="-1"
+        fill="#ffffff">JJVV</text>
+
+  <g>
+    <rect x="24" y="240" width="252" height="46" rx="23" fill="#fc6c5a"/>
+    <text x="150" y="270" text-anchor="middle"
+          font-family="Outfit, 'Plus Jakarta Sans', 'Segoe UI', sans-serif"
+          font-size="27" font-weight="800" letter-spacing="1"
+          fill="#ffffff">SAN LUIS III</text>
+  </g>
+</svg>

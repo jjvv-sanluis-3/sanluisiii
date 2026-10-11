@@ -8,14 +8,18 @@
    exportan a un tamaño exacto de píxel (1080×1080, etc.).
    ============================================================ */
 
-@import url("../../tokens/tokens.css");
+/* Rutas relativas a ESTE archivo, que vive en marca/plantillas/:
+   ../tokens/  →  marca/tokens/
+   ../tipo/    →  marca/tipo/                                        */
+@import url("../tokens/tokens.css");
+@import url("../tipo/fuentes.css");
 
 /* ---------- Reset del lienzo ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
   background: transparent;
-  font-family: var(--font-family);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 }
@@ -51,16 +55,18 @@ html, body {
 }
 .brandmark svg { display: block; }
 .brandmark .brand-text {
+  font-family: var(--font-display);
   font-size: 26px;
   font-weight: 900;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--color-text);
 }
 .brandmark .brand-text small {
   display: block;
+  font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--color-text-muted);
   margin-top: 6px;
@@ -94,6 +100,7 @@ html, body {
 
 /* ---------- Títulos ---------- */
 .title {
+  font-family: var(--font-display);
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.035em;

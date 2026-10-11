@@ -12,8 +12,8 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, mkdirSync, existsSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from "node:fs";
+import { dirname, resolve, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -69,6 +69,35 @@ export function capture(htmlFile, outFile, width, height) {
   return { ok, expected: { width, height }, actual: size };
 }
 
+/**
+ * Captura un SVG como PNG de width × height exactos.
+ *
+ * No se puede pasar el SVG directo a Edge: el navegador lo pinta a su
+ * tamaño natural dentro de la ventana y queda una miniatura en una esquina.
+ * Se envuelve en un HTML del tamaño exacto y se centra.
+ */
+export function captureSvg(svgFile, outFile, width, height, fondo = "transparent") {
+  const svg = readFileSync(svgFile, "utf8");
+  const tmpHtml = resolve(dirname(outFile), `__${basename(svgFile)}.html`);
+  mkdirSync(dirname(outFile), { recursive: true });
+  writeFileSync(
+    tmpHtml,
+    `<!doctype html><html><head><meta charset="utf-8">
+<style>
+ html,body{margin:0;padding:0;width:${width}px;height:${height}px;overflow:hidden;
+         background:${fondo};display:grid;place-items:center}
+ svg{width:${width}px;height:${height}px;display:block}
+</style></head><body>${svg}</body></html>`,
+    "utf8"
+  );
+  try {
+    return capture(tmpHtml, outFile, width, height);
+  } finally {
+    // El HTML de apoyo no se deja en el repo
+    try { unlinkSync(tmpHtml); } catch {}
+  }
+}
+
 /** Captura un HTML largo como PDF (A4 vertical, sin márgenes de escala). */
 export function capturePdf(htmlFile, outFile) {
   const browser = findBrowser();
@@ -99,10 +128,20 @@ const P = (p) => resolve(ROOT, "marca", "plantillas", p);
 
 const JOBS = {
   logo: [
-    { html: L("sanluis3-marca.svg"), out: L("png/sanluis3-marca-512.png"), w: 512, h: 512 },
-    { html: L("sanluis3-avatar.svg"), out: L("png/sanluis3-avatar-512.png"), w: 512, h: 512 },
-    { html: L("sanluis3-horizontal.svg"), out: L("png/sanluis3-horizontal-1360.png"), w: 1360, h: 256 },
-    { html: L("favicon.svg"), out: L("png/favicon-64.png"), w: 64, h: 64 },
+    // El logotipo real, reconstruido como vector. Con fondo crema porque
+    // el PNG transparente se ve raro en cualquier visor de fondo oscuro.
+    { svg: L("sanluis3-logo-completo.svg"),  out: L("png/logo-completo-1200.png"),  w: 1200, h: 1200, fondo: "#fff9f6" },
+    { svg: L("sanluis3-logo-completo.svg"),  out: L("png/logo-completo-300.png"),   w: 300,  h: 300,  fondo: "#fff9f6" },
+    // La versión reversa se muestra sobre tinta: así se demuestra que existe
+    { svg: L("sanluis3-logo-reversa.svg"),   out: L("png/logo-reversa-1200.png"),   w: 1200, h: 1200, fondo: "#1e3036" },
+    { svg: L("sanluis3-logo-mono.svg"),      out: L("png/logo-mono-1200.png"),      w: 1200, h: 1200, fondo: "#fff9f6" },
+    // El símbolo suelto, para avatar y favicon
+    { svg: L("sanluis3-simbolo.svg"),        out: L("png/simbolo-512.png"),         w: 512,  h: 512,  fondo: "#fff9f6" },
+    { svg: L("sanluis3-simbolo.svg"),        out: L("png/simbolo-avatar-512.png"),  w: 512,  h: 512,  fondo: "#fc6c5a" },
+    // Favicon
+    { svg: L("favicon.svg"),                out: L("png/favicon-64.png"),          w: 64,   h: 64,   fondo: "#ffffff" },
+    { svg: L("favicon.svg"),                out: L("png/favicon-180.png"),        w: 180,  h: 180,  fondo: "#ffffff" },
+    { svg: L("favicon.svg"),                out: L("png/favicon-512.png"),        w: 512,  h: 512,  fondo: "#ffffff" },
   ],
   plantillas: [
     { html: P("ig-post/ig-post.html"), out: P("ig-post/ig-post.png"), w: 1080, h: 1080 },
@@ -137,7 +176,9 @@ for (const grupo of grupos) {
         const bytes = capturePdf(job.html, job.out);
         console.log(`  ✓ ${job.out.replace(ROOT + "\\", "")}  (PDF, ${(bytes / 1024).toFixed(0)} KB)`);
       } else {
-        const r = capture(job.html, job.out, job.w, job.h);
+        const r = job.svg
+          ? captureSvg(job.svg, job.out, job.w, job.h, job.fondo)
+          : capture(job.html, job.out, job.w, job.h);
         const marca = r.ok ? "✓" : "✗";
         console.log(
           `  ${marca} ${job.out.replace(ROOT + "\\", "")}  ${r.actual.width}×${r.actual.height}` +

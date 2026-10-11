@@ -1,0 +1,64 @@
+/* ============================================================
+   JJVV SAN LUIS III · Tipografías de la marca
+   ------------------------------------------------------------
+   Ambas son FUENTES VARIABLES auto-alojadas (self-hosted).
+   No hay dependencia de Google Fonts CDN: el sitio funciona
+   aunque no haya internet externo, y los vecinos del barrio
+   con datos lentos no descargan de más.
+
+   OUTFIT               → display / titulares  (pesos 100–900)
+   PLUS JAKARTA SANS    → cuerpo / lectura      (pesos 200–800)
+
+   Por qué NO Inter: es la tipografía por defecto que
+   usa todo lo generado por IA. Una marca que se quiere
+   reconocer necesita una voz propia. (Regla anti-slop:
+   design-taste-frontend §4.1 "AVOID Inter as default")
+
+   Outfit es geométrica y redondeada: es la misma familia
+   visual que el logotipo "JJVV", así que el titular y el
+   logo hablan el mismo idioma.
+   ============================================================ */
+
+/* ---------- OUTFIT · variable 100–900 · display ---------- */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fuentes/Outfit-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fuentes/Outfit-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- PLUS JAKARTA SANS · variable 200–800 · cuerpo ---------- */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("fuentes/Jakarta-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("fuentes/Jakarta-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}

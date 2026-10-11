@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de marca · Junta de Vecinos San Luis III</title>
+<meta name="description" content="Manual de marca de la Junta de Vecinos San Luis III, Maipú. Logo, color, tipografía y plantillas para el sitio web y redes sociales.">
+<link rel="stylesheet" href="tipo/fuentes.css">
+<link rel="stylesheet" href="tokens/tokens.css">
+<style>
+/* ============================================================
+   MANUAL DE MARCA · JJVV SAN LUIS III
+   Imprimible (Ctrl+P → Guardar como PDF) y legible en pantalla.
+   Usa los mismos tokens que la web y las plantillas, así que si
+   cambia un color, el manual cambia con él.
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);color:var(--color-text);
+     background:var(--cream-200);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.envoltorio{max-width:960px;margin:0 auto;background:#fff;
+           box-shadow:var(--shadow-lg);padding:72px 76px 96px}
+
+/* ---------- tipografía del documento ---------- */
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:900;line-height:1.08;
+            letter-spacing:-.022em}
+h1{font-size:3rem}
+h2{font-size:2.1rem;margin:64px 0 8px}
+h3{font-size:1.3rem;margin:38px 0 10px}
+p{color:var(--color-text-muted);max-width:66ch}
+ul,ol{max-width:66ch;padding-left:22px;color:var(--color-text-muted)}
+li{margin:7px 0}
+strong{color:var(--color-text);font-weight:700}
+a{color:var(--color-text-brand);font-weight:600}
+
+/* ---------- bloques de apoyo ---------- */
+.ojo{border-left:5px solid var(--color-primary);background:var(--salmon-50);
+     padding:20px 26px;border-radius:0 var(--radius-lg) var(--radius-lg) 0;margin:24px 0}
+.ojo p{margin:0}
+.evitar{border-left:5px solid var(--color-text);background:var(--ink-50);
+        padding:20px 26px;border-radius:0 var(--radius-lg) var(--radius-lg) 0;margin:24px 0}
+.evitar p{margin:0}
+
+.num{font-family:var(--font-display);font-size:.78rem;font-weight:900;letter-spacing:.18em;
+     color:var(--color-primary);margin-bottom:6px;display:block}
+.rotulo{font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+        color:var(--color-text-faint);margin-bottom:18px}
+.regla{height:1px;background:var(--color-border);margin:12px 0 0}
+
+/* ---------- portada ---------- */
+.portada{background:var(--ink-900);color:#fff;padding:64px 56px;border-radius:var(--radius-xl);
+         margin:-72px -76px 56px;position:relative;overflow:hidden}
+.portada img{position:relative;z-index:2}
+.portada h1{margin:34px 0 14px;color:#fff;font-size:3.4rem;position:relative;z-index:2;
+           letter-spacing:-.028em}
+.portada p{color:var(--ink-200);font-size:1.12rem;max-width:44ch;position:relative;z-index:2}
+.portada .sello{position:absolute;right:-90px;bottom:-90px;opacity:.13;z-index:1}
+
+/* ---------- índice ---------- */
+.indice{columns:2;column-gap:44px;margin:26px 0 0}
+.indice a{display:block;padding:9px 0;border-bottom:1px solid var(--color-border-soft);
+          text-decoration:none;color:var(--color-text);font-weight:600;font-size:.95rem}
+.indice a span{color:var(--color-text-faint);font-weight:700;margin-right:12px;
+               font-family:var(--font-display)}
+
+/* ---------- rejillas de muestras ---------- */
+.muestras{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.muestra{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border)}
+.muestra .pastilla{height:104px}
+.muestra .dato{padding:13px 16px;font-size:.82rem}
+.muestra .dato b{display:block;font-weight:800;font-size:.95rem}
+.muestra .dato code{font-family:var(--font-body);font-size:.78rem;color:var(--color-text-faint)}
+
+/* ---------- tabla ---------- */
+table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.93rem}
+th{text-align:left;padding:12px 14px;background:var(--ink-900);color:#fff;
+   font-family:var(--font-display);font-weight:700;font-size:.86rem;letter-spacing:.04em}
+td{padding:13px 14px;border-bottom:1px solid var(--color-border-soft);
+   color:var(--color-text-muted)}
+td:first-child{font-weight:700;color:var(--color-text)}
+
+/* ---------- figuras / muestras de uso ---------- */
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:24px 0}
+.caso{border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden}
+.caso .lienzo{display:grid;place-items:center;padding:34px 20px;min-height:190px}
+.caso .pie{padding:12px 16px;font-size:.8rem;color:var(--color-text-muted);
+           border-top:1px solid var(--color-border-soft);background:var(--cream-100)}
+.caso .pie b{color:var(--color-text)}
+
+.muestras-logo{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:26px 0}
+.caja-logo{border:1px solid var(--color-border);border-radius:var(--radius-lg);
+           display:grid;place-items:center;padding:26px 14px;min-height:150px}
+.caja-logo img{max-width:100%;height:auto}
+.caja-logo small{display:block;margin-top:12px;font-size:.72rem;letter-spacing:.1em;
+                text-transform:uppercase;color:var(--color-text-faint);text-align:center}
+
+/* ---------- lista de prohibitions ---------- */
+.prohibido{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.malo{border:1px solid var(--cream-400);border-radius:var(--radius-lg);overflow:hidden}
+.malo .ver{display:grid;place-items:center;padding:24px;min-height:150px}
+.malo .pie{padding:11px 15px;font-size:.82rem;color:#8a3b34;background:#fdeeec;font-weight:700}
+.malo img{filter:none}
+
+/* ---------- plantillas ---------- */
+.piezas{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:26px 0}
+.pieza{background:var(--ink-900);border-radius:var(--radius-lg);padding:16px;
+       display:flex;flex-direction:column;gap:12px}
+.pieza .marco{background:#fff;border-radius:10px;overflow:hidden;
+              display:grid;place-items:center;height:250px}
+.pieza .marco img{max-width:100%;max-height:250px;display:block}
+.pieza .info{color:#fff}
+.pieza .info b{font-family:var(--font-display);font-weight:700;font-size:1rem}
+.pieza .info span{display:block;color:var(--ink-300);font-size:.8rem;margin-top:2px}
+
+/* ---------- checklist ---------- */
+.check li{list-style:none;position:relative;padding-left:34px;margin:13px 0}
+.check li:before{content:"";position:absolute;left:0;top:4px;width:19px;height:19px;
+                 border:2px solid var(--color-primary);border-radius:6px}
+
+code{font-family:var(--font-body);background:var(--cream-200);padding:2px 7px;
+     border-radius:6px;font-size:.88em;color:var(--ink-800)}
+pre{background:var(--ink-900);color:var(--ink-100);padding:20px 24px;border-radius:var(--radius-lg);
+    overflow-x:auto;margin:20px 0;font-size:.85rem;line-height:1.7}
+pre code{background:none;color:inherit;padding:0}
+
+/* ---------- pie ---------- */
+.pie-doc{margin-top:70px;padding-top:26px;border-top:1px solid var(--color-border);
+         font-size:.84rem;color:var(--color-text-faint)}
+
+/* ============================================================
+   IMPRESIÓN · una columna, sin sombras, con saltos limpios
+   ============================================================ */
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  body{background:#fff}
+  .envoltorio{box-shadow:none;max-width:none;padding:0}
+  .portada{margin:0 0 30px;padding:44px 34px;break-after:page}
+  h2{break-before:page;break-after:avoid}
+  h2:first-of-type{break-before:auto}
+  .dos,.prohibido,.muestras,.piezas,.muestras-logo{break-inside:avoid}
+  table{break-inside:avoid}
+  a{color:inherit;text-decoration:none}
+}
+@media (max-width:760px){
+  .envoltorio{padding:36px 24px 56px}
+  .portada{margin:-36px -24px 36px;padding:36px 24px}
+  .indice,.prohibido,.muestras-logo,.piezas{columns:1;grid-template-columns:1fr}
+  .muestras{grid-template-columns:1fr 1fr}
+  h1{font-size:2.2rem}.portada h1{font-size:2.4rem}
+}
+</style>
+</head>
+<body>
+<div class="envoltorio">
+
+  <!-- ========================= PORTADA ========================= -->
+  <header class="portada">
+    <img src="logo/sanluis3-simbolo.svg" alt="" width="88" height="74">
+    <h1>Manual de marca</h1>
+    <p>Junta de Vecinos San Luis III · Maipú<br>El barrio cambia cuando nos movemos juntos.</p>
+    <img class="sello" src="logo/sanluis3-simbolo.svg" alt="" width="300" height="253">
+  </header>
+
+  <p style="font-size:.9rem;color:var(--color-text-faint)">
+    Versión 1.0 · Julio 2026 · Todo lo que hay en esta carpeta es editable:
+    cambia un color o una tipografía y se actualiza sitio, redes y manual juntos.
+  </p>
+
+  <!-- ========================= ÍNDICE ========================= -->
+  <h2 style="margin-top:48px">Qué hay aquí</h2>
+  <nav class="indice">
+    <a href="#identidad"><span>01</span>Quiénes somos</a>
+    <a href="#voz"><span>02</span>Cómo hablamos</a>
+    <a href="#logo"><span>03</span>El logotipo</a>
+    <a href="#color"><span>04</span>Los colores</a>
+    <a href="#tipo"><span>05</span>Las letras</a>
+    <a href="#elementos"><span>06</span>Radios, sombras y fotos</a>
+    <a href="#aplicaciones"><span>07</span>Las piezas de cada red</a>
+    <a href="#checklist"><span>08</span>Antes de publicar</a>
+    <a href="#archivos"><span>09</span>Dónde está cada archivo</a>
+  </nav>
+
+  <!-- ========================= 01 · IDENTIDAD ========================= -->
+  <h2 id="identidad">01 · Quiénes somos</h2>
+  <span class="num">LA MARCA EN UNA FRASE</span>
+  <p style="font-size:1.2rem;color:var(--color-text)">
+    Somos la Junta de Vecinos de San Luis III, en Maipú. Abrimos la multicancha,
+    organizamos los deportes del barrio y hacemos que las familias se conozcan.
+    No somos una institución: somos los vecinos de acá.
+  </p>
+
+  <div class="ojo">
+    <p><strong>El concepto del logotipo.</strong> Tres figuras con los brazos en alto
+    son tres vecinos: el <strong>III</strong> del San Luis III. Las tres pelotas en el
+    círculo central son los tres deportes del barrio: <strong>fútbol, vóley y básquetbol</strong>.
+    Nadie tiene que saberlo para entenderlo, pero es lo que hace que el logo sea
+    nuestro y no un dibujo más.</p>
+  </div>
+
+  <h3>Lo que la marca NO es</h3>
+  <p>Para mantener la misma línea en todo lo que publicamos, acordamos lo contrario:</p>
+  <ul>
+    <li>No es una municipalidad ni un organismo público.</li>
+    <li>No es un equipo de fútbol con hinchas.</li>
+    <li>No es una ONG con equipo de comunicación.</li>
+  </ul>
+
+  <!-- ========================= 02 · VOZ ========================= -->
+  <h2 id="voz">02 · Cómo hablamos</h2>
+  <p>Escribimos como lo haría una vecina que avisa en el grupo del barrio:
+  directo, cálida, sin dar vueltas. El detalle largo está en
+  <code>docs/estrategia.md</code>.</p>
+
+  <div class="dos">
+    <div class="caso">
+      <div class="lienzo" style="background:var(--cream-100)">
+        <p style="font-size:1.05rem;color:var(--color-text);text-align:center;max-width:26ch">
+          This Thursday at five we play football at the multicancha.
+          The teams are made up on the day, so just show up.</p>
+      </div>
+      <div class="pie"><b>Así sí.</b> Dato concreto, dónde, qué pasa si no te anotaste antes.</div>
+    </div>
+    <div class="caso">
+      <div class="lienzo" style="background:var(--cream-100)">
+        <p style="font-size:1.05rem;color:var(--color-text-faint);text-align:center;max-width:26ch">
+          ¡Nos emociona compartir esta inigualable y única experiencia deportiva
+          que nos une, sin duda la mejor de toda la región, para todos ustedes!</p>
+      </div>
+      <div class="pie"><b>Así no.</b> Palabras grandilocuentes, troutas y nada de información real.</div>
+    </div>
+  </div>
+
+  <ul>
+    <li><strong>Tuteamos.</strong> El barrio se trata de tú a tú.</li>
+    <li><strong>Datos concretos antes que adjetivos.</strong> Fecha, hora y lugar, siempre.</li>
+    <li><strong>Una idea por mensaje.</strong> Si hay dos noticias, son dos publicaciones.</li>
+    <li><strong>Sin mayúsculas sostenidas</strong> ni signos de exclamación repetidos.</li>
+  </ul>
+
+  <!-- ========================= 03 · LOGO ========================= -->
+  <h2 id="logo">03 · El logotipo</h2>
+
+  <h3>Las cuatro versiones y cuándo se usa cada una</h3>
+  <div class="muestras-logo">
+    <div class="caja-logo" style="background:var(--cream-100)">
+      <div style="text-align:center">
+        <img src="logo/sanluis3-logo-completo.svg" alt="Logotipo completo">
+        <small>Completo · fondo claro</small>
+      </div>
+    </div>
+    <div class="caja-logo" style="background:var(--ink-900)">
+      <div style="text-align:center">
+        <img src="logo/sanluis3-logo-reversa.svg" alt="Logotipo reverso">
+        <small style="color:var(--ink-300)">Reverso · fondo oscuro</small>
+      </div>
+    </div>
+    <div class="caja-logo" style="background:var(--cream-100)">
+      <div style="text-align:center">
+        <img src="logo/sanluis3-simbolo.svg" alt="Símbolo">
+        <small>Símbolo · avatar y sello</small>
+      </div>
+    </div>
+    <div class="caja-logo" style="background:var(--cream-100)">
+      <div style="text-align:center;color:var(--color-text)">
+        <span style="font-family:var(--font-display);font-weight:900;font-size:2.6rem;
+                     letter-spacing:-.04em">JJVV</span>
+        <small style="margin-top:6px">Solo el nombre · pie de página</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="ojo">
+    <p><strong>La versión reversa no es opcional.</strong> El pie del sitio y varios
+    fondos son color tinta. Con el logo de color sobre fondo oscuro, la parte
+    tinta se pierde. Por eso existe la versión blanca.</p>
+  </div>
+
+  <h3>Zona de respeto y tamaño mínimo</h3>
+  <ul>
+    <li><strong>Zona de respeto:</strong> alrededor del logo, un espacio libre
+    equivalente al ancho de la cabeza central. Nada entra ahí.</li>
+    <li><strong>Tamaño mínimo:</strong> 120 px de ancho en pantalla, o 25 mm impreso.
+    Bajo eso, se usa el símbolo solo.</li>
+    <li><strong>Símbolo solo:</strong> desde 24 px en pantalla, o 8 mm impreso.</li>
+  </ul>
+
+  <h3>Los cuatro errores que más se repiten</h3>
+  <div class="prohibido">
+    <div class="malo">
+      <div class="ver" style="background:var(--ink-900)">
+        <img src="logo/sanluis3-logo-completo.svg" alt="" width="128">
+      </div>
+      <div class="pie">Logo de color sobre fondo oscuro: la tinta desaparece.</div>
+    </div>
+    <div class="malo">
+      <div class="ver" style="background:var(--cream-100)">
+        <img src="logo/sanluis3-logo-completo.svg" alt="" width="190" style="transform:scaleY(.55)">
+      </div>
+      <div class="pie">Estirado o aplastado. Siempre se escala en proporción.</div>
+    </div>
+    <div class="malo">
+      <div class="ver" style="background:var(--cream-100)">
+        <img src="logo/sanluis3-logo-completo.svg" alt="" width="128" style="filter:hue-rotate(140deg)">
+      </div>
+      <div class="pie">Cambiar los colores o invertirlos.</div>
+    </div>
+    <div class="malo">
+      <div class="ver" style="background:var(--cream-100)">
+        <img src="logo/sanluis3-logo-completo.svg" alt="" width="60">
+      </div>
+      <div class="pie">Más chico que el mínimo. A ese tamaño usa el símbolo.</div>
+    </div>
+  </div>
+
+  <!-- ========================= 04 · COLOR ========================= -->
+  <h2 id="color">04 · Los colores</h2>
+  <p>Los dos colores base se tomaron <strong>muestreando el archivo original del
+  logo</strong>, no estimados a ojo. Antes el sitio usaba un salmón más apagado y
+  el logo se veía siempre un poco desentonado con la web. Ahora manda el logo.</p>
+
+  <div class="muestras">
+    <div class="muestra">
+      <div class="pastilla" style="background:#FC6C5A"></div>
+      <div class="dato"><b>Salmón 500</b><code>#FC6C5A</code><br>Botones, cifras clave</div>
+    </div>
+    <div class="muestra">
+      <div class="pastilla" style="background:#CF594A"></div>
+      <div class="dato"><b>Salmón 600</b><code>#CF594A</code><br>Texto y enlaces</div>
+    </div>
+    <div class="muestra">
+      <div class="pastilla" style="background:#1E3036"></div>
+      <div class="dato"><b>Tinta 900</b><code>#1E3036</code><br>Texto y fondos oscuros</div>
+    </div>
+    <div class="muestra">
+      <div class="pastilla" style="background:#52616B"></div>
+      <div class="dato"><b>Tinta 600</b><code>#52616B</code><br>Texto secundario</div>
+    </div>
+    <div class="muestra">
+      <div class="pastilla" style="background:#FFD166"></div>
+      <div class="dato"><b>Amarillo 400</b><code>#FFD166</code><br>Acento sobre oscuro</div>
+    </div>
+    <div class="muestra">
+      <div class="pastilla" style="background:#FFF9F6"></div>
+      <div class="dato"><b>Crema 100</b><code>#FFF9F6</code><br>Fondo del sitio</div>
+    </div>
+  </div>
+
+  <div class="ojo">
+    <p><strong>Un solo acento: el salmón.</strong> El amarillo existe para los fondos
+    oscuros, donde el salmón se apaga. Nunca se usan los dos como colores de acción
+    en la misma pieza.</p>
+  </div>
+
+  <h3>Reglas de contraste</h3>
+  <ul>
+    <li>Texto principal sobre crema o blanco: siempre tinta, nunca salmón
+    (el salmón no llega a 4.5:1 sobre crema).</li>
+    <li>Sobre tinta, el texto va blanco; para destacar, amarillo o salmón.</li>
+    <li>Nunca texto salmonado sobre crema para cosas largas.</li>
+  </ul>
+
+  <!-- ========================= 05 · TIPOGRAFÍA ========================= -->
+  <h2 id="tipo">05 · Las letras</h2>
+  <p>Dos familias, dos trabajos. Se descartaron a propósito las tipografías
+  genéricas que usa por defecto todo lo generado automáticamente: una marca que
+  quiere que la reconozcan necesita una voz propia.</p>
+
+  <div class="dos">
+    <div class="caso">
+      <div class="lienzo" style="background:var(--cream-100);justify-items:start;align-content:center;display:grid">
+        <span style="font-size:.76rem;font-weight:800;letter-spacing:.16em;
+                     text-transform:uppercase;color:var(--color-text-faint)">Titulares · Outfit</span>
+        <span style="font-family:var(--font-display);font-weight:900;font-size:2.6rem;
+                     letter-spacing:-.04em;line-height:1.05">Fútbol<br>comunitario</span>
+      </div>
+      <div class="pie"><b>Outfit</b> · geométrica y redondeada, la misma familia visual
+      del logotipo. Solo para titulares.</div>
+    </div>
+    <div class="caso">
+      <div class="lienzo" style="background:var(--cream-100);justify-items:start;align-content:center;display:grid">
+        <span style="font-size:.76rem;font-weight:800;letter-spacing:.16em;
+                     text-transform:uppercase;color:var(--color-text-faint)">Texto · Plus Jakarta Sans</span>
+        <span style="font-family:var(--font-body);font-weight:500;font-size:1.4rem;
+                     line-height:1.4;max-width:24ch">Los equipos se forman el mismo día.
+        Solo hay que llegar con ropa cómoda.</span>
+      </div>
+      <div class="pie"><b>Plus Jakarta Sans</b> · humanista y muy legible en pantalla
+      chica de celular. Para todo lo demás.</div>
+    </div>
+  </div>
+
+  <h3>La escala</h3>
+  <table>
+    <thead><tr><th>Uso</th><th>Tamaño</th><th>Peso</th><th>Letras</th></tr></thead>
+    <tbody>
+      <tr><td>Portada del sitio</td><td>2.7rem y más</td><td>900</td><td style="font-family:var(--font-body)">-0.04em</td></tr>
+      <tr><td>Título de sección</td><td>2rem</td><td>800</td><td style="font-family:var(--font-body)">-0.025em</td></tr>
+      <tr><td>Título de tarjeta</td><td>1.2rem</td><td>800</td><td style="font-family:var(--font-body)">-0.02em</td></tr>
+      <tr><td>Texto de lectura</td><td>1rem</td><td>400</td><td style="font-family:var(--font-body)">normal</td></tr>
+      <tr><td>Texto secundario</td><td>0.95rem</td><td>400</td><td style="font-family:var(--font-body)">normal</td></tr>
+      <tr><td>Etiquetas</td><td>0.78rem</td><td>800</td><td style="font-family:var(--font-body)">+0.06em, mayúsculas</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ojo">
+    <p><strong>Outfit es más abierta que la media</strong>, así que los titulares
+    grandes llevan tracking negativo y las etiquetas positivo. Copiar esos valores
+    desde los tokens, no improvisar.</p>
+  </div>
+
+  <!-- ========================= 06 · ELEMENTOS ========================= -->
+  <h2 id="elementos">06 · Radios, sombras y fotos</h2>
+
+  <h3>Una sola escala de curvas</h3>
+  <p>Todo el sistema usa la misma escala. Mezclar botones cuadrados con tarjetas
+  redondeadas es una de las cosas que más hace que un diseño se vea genérico.</p>
+  <table>
+    <thead><tr><th>Radio</th><th>Se usa en</th></tr></thead>
+    <tbody>
+      <tr><td>Píldora (completo)</td><td>Botones, etiquetas y chips</td></tr>
+      <tr><td>24 px</td><td>Tarjetas, paneles y fotos</td></tr>
+      <tr><td>16 px</td><td>Bloques medianos y campos</td></tr>
+      <tr><td>8 px</td><td>Detalles pequeños y miniaturas</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Sombras</h3>
+  <p>Las sombras están teñidas de tinta, nunca de negro puro. Un negro al 30 %
+  sobre fondo crema se ve sucio; con tinta al 12 % se ve profundidad.</p>
+  <pre><code>sombra suave   0 2px 8px  rgba(30, 48, 54, .07)
+sombra media   0 10px 24px rgba(30, 48, 54, .11)
+sombra tarjeta 0 18px 50px rgba(30, 48, 54, .13)
+sombra marca   0 14px 34px rgba(252, 108, 90, .28)</code></pre>
+
+  <h3>Iconos y fotos</h3>
+  <ul>
+    <li><strong>No se usan emojis como íconos.</strong> Donde haga falta un
+    símbolo (por ejemplo, la ubicación de un evento) se usa un ícono de trazo,
+    no un 📍 de colores.</li>
+    <li>El <strong>gesto de las tres figuras</strong> se puede repetir como
+    patrón o recordatorio de que somos tres.</li>
+    <li><strong>Fotos:</strong> vecinos reales, luz de la tarde, ropa de calle.
+    Nada de fotos de banco con gente sonriendo a la cámara.</li>
+  </ul>
+
+  <div class="evitar">
+    <p><strong>Prohibido en todo el sistema:</strong> degradados violetas o azules
+    fluorescentes, brillos de neón, emojis como íconos, negro puro
+    <code>#000000</code> y blanco puro <code>#FFFFFF</code> sobre superficie
+    clara. Son las marcas que hacen que una publicación parezca hecha
+    automáticamente.</p>
+  </div>
+
+  <!-- ========================= 07 · APLICACIONES ========================= -->
+  <h2 id="aplicaciones">07 · Las piezas de cada red</h2>
+  <p>Hay ocho plantillas, cada una en el tamaño exacto que pide su plataforma.
+  No hay que redimensionar nada: se edita el texto y se exporta.</p>
+
+  <table>
+    <thead><tr><th>Pieza</th><th>Tamaño</th><th>Fondo</th><th>Cuándo se usa</th></tr></thead>
+    <tbody>
+      <tr><td>Post de Instagram</td><td>1080 × 1080</td><td>Crema</td><td>Evento o convocatoria</td></tr>
+      <tr><td>Historia de Instagram</td><td>1080 × 1920</td><td>Tinta</td><td>Recordatorio el mismo día</td></tr>
+      <tr><td>Carrusel</td><td>1080 × 1350</td><td>Salmón</td><td>Portada de información</td></tr>
+      <tr><td>Portada de TikTok</td><td>1080 × 1920</td><td>Tinta</td><td>Video del barrio</td></tr>
+      <tr><td>Publicación de Facebook</td><td>1200 × 630</td><td>Blanco</td><td>Mismo post, formato Facebook</td></tr>
+      <tr><td>Portada de Facebook</td><td>820 × 312</td><td>Tinta</td><td>Imagen de portada del perfil</td></tr>
+      <tr><td>Banner web</td><td>1920 × 600</td><td>Crema y tinta</td><td>Sitio y boletín</td></tr>
+      <tr><td>Aviso WhatsApp</td><td>1080 × 1080</td><td>Salmón</td><td>Difusión en grupos del barrio</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Así se ven</h3>
+  <div class="piezas">
+    <div class="pieza">
+      <div class="marco"><img src="plantillas/ig-post/ig-post.png" alt="Plantilla de Instagram"></div>
+      <div class="info"><b>Post de Instagram</b><span>1080 × 1080 · fondo crema</span></div>
+    </div>
+    <div class="pieza">
+      <div class="marco"><img src="plantillas/ig-story/ig-story.png" alt="Plantilla de historia"></div>
+      <div class="info"><b>Historia</b><span>1080 × 1920 · fondo tinta</span></div>
+    </div>
+    <div class="pieza">
+      <div class="marco"><img src="plantillas/ig-carrusel/ig-carrusel.png" alt="Plantilla de carrusel"></div>
+      <div class="info"><b>Carrusel</b><span>1080 × 1350 · fondo salmón</span></div>
+    </div>
+    <div class="pieza">
+      <div class="marco"><img src="plantillas/tiktok-portada/tiktok-portada.png" alt="Portada de TikTok"></div>
+      <div class="info"><b>TikTok</b><span>1080 × 1920 · fondo tinta</span></div>
+    </div>
+    <div class="pieza">
+      <div class="marco"><img src="plantillas/fb-post/fb-post.png" alt="Publicación de Facebook"></div>
+      <div class="info"><b>Facebook</b><span>1200 × 630 · fondo blanco</span></div>
+    </div>
+    <div class="pieza">
+      <div class="marco"><img src="plantillas/aviso-whatsapp/aviso-whatsapp.png" alt="Aviso de WhatsApp"></div>
+      <div class="info"><b>WhatsApp</b><span>1080 × 1080 · fondo salmón</span></div>
+    </div>
+  </div>
+
+  <p>La retícula completa de la marca está en
+  <a href="board/board-identidad.html">board/board-identidad.html</a>.</p>
+
+  <!-- ========================= 08 · CHECKLIST ========================= -->
+  <h2 id="checklist">08 · Antes de publicar</h2>
+  <ul class="check">
+    <li>¿El logo está en la versión correcta para el fondo? (color sobre claro,
+    reverso sobre oscuro).</li>
+    <li>¿El logo tiene su zona de respeto libre y no está más chico que el mínimo?</li>
+    <li>¿Los titulares usan Outfit y los textos Plus Jakarta Sans?</li>
+    <li>¿El texto largo va en tinta, no en salmón?</li>
+    <li>¿Hay solo un color de acento, y es el salmón (o amarillo sobre oscuro)?</li>
+    <li>¿Las curvas respetan la escala: píldora, 24, 16 y 8?</li>
+    <li>¿La pieza está en el tamaño exacto de la plataforma?</li>
+    <li>¿Fecha, hora y lugar aparecen si es un evento?</li>
+    <li>¿Leíste el texto en voz alta y se lo leerías a un vecino que no participa de la
+    comisión? ¿Entendería qué día, a qué hora y dónde?</li>
+  </ul>
+
+  <!-- ========================= 09 · ARCHIVOS ========================= -->
+  <h2 id="archivos">09 · Dónde está cada archivo</h2>
+  <table>
+    <thead><tr><th>Carpeta</th><th>Qué hay</th></tr></thead>
+    <tbody>
+      <tr><td>logo/</td><td>El logo en SVG (vectorial, se imprime nítido) y sus versiones</td></tr>
+      <tr><td>tokens/</td><td>Los colores y las medidas de todo el sistema</td></tr>
+      <tr><td>tipo/</td><td>Las dos tipografías y sus archivos de texto</td></tr>
+      <tr><td>plantillas/</td><td>Las 8 piezas, cada una con su HTML y su PNG</td></tr>
+      <tr><td>board/</td><td>La retícula 3 × 3 de la identidad</td></tr>
+      <tr><td>docs/</td><td>Estrategia de voz, con ejemplos de textos</td></tr>
+      <tr><td>tools/</td><td>Los scripts que regeneran todo</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Para cambiar algo y rehacerlo todo</h3>
+  <pre><code># Cambia el texto de una publicación
+node marca/tools/plantillas.mjs
+
+# Cambia un color en tokens/tokens.css y rehace las 8 piezas
+node marca/tools/plantillas.mjs
+node marca/tools/render.mjs solo=plantillas
+
+# Cambia el logo y rehace sus versiones
+node marca/tools/variantes.mjs
+
+# Verifica que los SVG estén sanos antes de subirlos
+node marca/tools/limpiar-svg.mjs</code></pre>
+
+  <div class="ojo">
+    <p><strong>Todo esto se regenera solo.</strong> Si cambia el color del logo,
+    se cambian los tokens y en un comando quedan al día el sitio, las ocho
+    plantillas, el board y este manual. No hay que editar las imágenes a mano.</p>
+  </div>
+
+  <footer class="pie-doc">
+    Junta de Vecinos San Luis III · Maipú · Manual de marca v1.0<br>
+    Logo, colores y tipografías libres para uso de la fundación y sus actividades.
+  </footer>
+
+</div>
+</body>
+</html>

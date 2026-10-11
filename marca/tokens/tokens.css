@@ -1,8 +1,15 @@
 /* ============================================================
-   JJVV SAN LUIS III — SISTEMA DE TOKENS · v1.0
+   JJVV SAN LUIS III — SISTEMA DE TOKENS · v1.1
    Skill de referencia: design-system (3 capas: primitiva → semántica → componente)
    Este archivo es la ÚNICA fuente de color/tipografía para la web,
    las plantillas sociales y el manual de marca.
+
+   v1.1 · Los colores PRIMARIOS se tomaron del logotipo real
+   (muestreados del PNG, no estimados a ojo):
+     Salmón del logo  #FC6C5A   → --salmon-500
+     Tinta del logo   #1E3036   → --ink-900
+   Antes el sitio usaba #fa8072 y #24313b, que eran aproximaciones
+   más apagadas. La marca manda: el color canónico es el del logo.
 
    Uso web:      <link rel="stylesheet" href="marca/tokens/tokens.css">
    Uso social:  @import url("tokens.css");
@@ -13,29 +20,29 @@
    ============================================================ */
 :root {
 
-  /* — Salmón · color principal de la marca — */
-  --salmon-50:  #fff1ef;
-  --salmon-100: #ffe1dc;
-  --salmon-200: #ffc4bb;
-  --salmon-300: #ffa494;
-  --salmon-400: #ff8a79;
-  --salmon-500: #fa8072;  /* NÚCLEO · el color que ya conocen los vecinos */
-  --salmon-600: #d85f54;  /* NÚCLEO · versión legible sobre crema */
-  --salmon-700: #b34c43;
-  --salmon-800: #8a3b34;
-  --salmon-900: #6b2c27;
+  /* — Salmón · color principal de la marca · núcleo #FC6C5A — */
+  --salmon-50:  #fef6f4;
+  --salmon-100: #feece7;
+  --salmon-200: #fdd5cd;
+  --salmon-300: #fdb8af;
+  --salmon-400: #fc9588;
+  --salmon-500: #fc6c5a;  /* NÚCLEO · el color del logotipo */
+  --salmon-600: #cf594a;  /* NÚCLEO · versión legible sobre crema (texto) */
+  --salmon-700: #ab493d;
+  --salmon-800: #883a31;
+  --salmon-900: #652b24;
 
-  /* — Tinta · azul carbón, texto y fondos oscuros — */
-  --ink-50:  #f4f7f8;
-  --ink-100: #e6ecef;
-  --ink-200: #cdd8dd;
-  --ink-300: #a9bac2;
-  --ink-400: #7f929c;
-  --ink-500: #5b6d78;
+  /* — Tinta · azul carbón, texto y fondos oscuros · núcleo #1E3036 — */
+  --ink-50:  #f4f7f7;
+  --ink-100: #e8eeef;
+  --ink-200: #d3dee1;
+  --ink-300: #b4c3c8;
+  --ink-400: #91a4aa;
+  --ink-500: #6e8187;
   --ink-600: #52616b;  /* NÚCLEO · texto secundario */
-  --ink-700: #3f4d57;
-  --ink-800: #314049;
-  --ink-900: #24313b;  /* NÚCLEO · texto principal */
+  --ink-700: #3a4c53;
+  --ink-800: #2a3d44;
+  --ink-900: #1e3036;  /* NÚCLEO · texto principal · núcleo del logo */
 
   /* — Crema · superficies cálidas y bordes — */
   --cream-50:  #fffdfc;
@@ -98,12 +105,25 @@
 }
 
 /* ============================================================
-   TIPOGRAFÍA · Inter
+   TIPOGRAFÍA
+   ------------------------------------------------------------
+   Dos roles, dos familias. Esta separación es intencional:
+   una sola fuente para todo hace que la marca se vea genérica.
+
+   DISPLAY  → Outfit (geométrica, 100–900). Titulares, portadas.
+              Comparte familia visual con el logotipo "JJVV".
+   CUERPO   → Plus Jakarta Sans (200–800). Textos y UI.
+              Humanista: se lee bien en pantalla chica de celular.
+
+   Definición de @font-face en ../tipo/fuentes.css (self-hosted).
    ============================================================ */
 :root {
-  --font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:    "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family:  var(--font-body);   /* alias genérico = cuerpo */
   --font-family-mono: "SF Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
+  /* Escala tipográfica · razón 1.25 (mayorthird) */
   --font-size-xs:   0.75rem;   /* 12px · etiquetas, legal */
   --font-size-sm:   0.875rem;  /* 14px · texto menor */
   --font-size-base: 1rem;      /* 16px · cuerpo */
@@ -116,19 +136,22 @@
 
   --font-weight-regular: 400;
   --font-weight-medium:  500;
-  --font-weight-semi:    700;
-  --font-weight-bold:    800;
+  --font-weight-semi:    600;
+  --font-weight-bold:    700;
   --font-weight-black:   900;
 
-  --line-height-tight:  1.08;
-  --line-height-snug:   1.25;
-  --line-height-normal: 1.65;
+  /* Métrica de Outfit: es una geométrica de x-height alto, así que
+     necesita un poco más de aire entre líneas que Inter. */
+  --line-height-tight:  1.06;
+  --line-height-snug:   1.28;
+  --line-height-normal: 1.70;
+  --line-height-relaxed:1.80;
 
-  --letter-spacing-tight:   -0.035em;  /* títulos grandes */
-  --letter-spacing-heading: -0.02em;
+  --letter-spacing-tight:   -0.04em;  /* titulares: Outfit queda muy abierta si no */
+  --letter-spacing-heading: -0.025em;
   --letter-spacing-normal:  0;
-  --letter-spacing-label:   0.06em;    /* etiquetas en mayúscula */
-  --letter-spacing-eyebrow: 0.14em;    /* eyebrows del sitio */
+  --letter-spacing-label:   0.06em;   /* etiquetas en mayúscula */
+  --letter-spacing-eyebrow: 0.14em;   /* eyebrows del sitio */
 }
 
 /* ============================================================
@@ -147,18 +170,43 @@
 }
 
 /* ============================================================
-   RADIOS · SCHADOWS
+   RADIOS · SHADOWS · MOVIMIENTO
+   ------------------------------------------------------------
+   SHAPE CONSISTENCY LOCK (regla dura, documentada en el manual)
+   Existe UNA sola escala de radios y en todo el sistema se usa así:
+
+     píldora  → botones, chips, etiquetas    (elementos redondos)
+     24px     → tarjetas, paneles, fotos     (bloque principal)
+     16px     → bloques medianos, inputs
+     8px      → detalles pequeños, miniaturas
+
+   Prohibido mezclar sin regla: botones cuadrados sobre un layout
+   de píldoras, o al revés. Es la causa #1 de "se ve genérico".
    ============================================================ */
 :root {
   --radius-sm:   8px;
   --radius-md:   12px;
   --radius-lg:   16px;
-  --radius-xl:   24px;  /* radio del sitio */
+  --radius-xl:   24px;  /* radio de tarjeta en todo el sistema */
   --radius-pill: 999px;
 
-  --shadow-sm: 0 2px 8px rgba(36, 49, 59, .06);
-  --shadow-md: 0 10px 24px rgba(36, 49, 59, .10);
-  --shadow-lg: 0 18px 50px rgba(36, 49, 59, .12);  /* sombra del sitio */
+  /* Sombras TEÑIDAS al fondo (nunca rgba(0,0,0,.3) negro puro sobre
+     superficie clara): el tono base es la propia tinta de la marca. */
+  --shadow-sm: 0 2px 8px rgba(30, 48, 54, .07);
+  --shadow-md: 0 10px 24px rgba(30, 48, 54, .11);
+  --shadow-lg: 0 18px 50px rgba(30, 48, 54, .13);  /* sombra del sitio */
+  --shadow-brand: 0 14px 34px rgba(252, 108, 90, .28);  /* sombra de marca */
+
+  /* Movimiento · curva propia. Nunca linear ni ease-in-out. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+  --duration-slow: 600ms;
+
+  /* Rejilla */
+  --grid-max: 1160px;
+  --grid-gutter: 20px;
 }
 
 /* ============================================================
