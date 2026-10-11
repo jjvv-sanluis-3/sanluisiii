@@ -60,6 +60,15 @@ Este panel te permite **crear y editar eventos** y **subir imágenes** a la pág
 
 ---
 
+## Comportamiento de las fechas
+
+- **Próximos eventos** muestra solo los eventos que **aún no ocurren**.
+- **Eventos realizados** muestra los que ya pasaron, con una etiqueta "Finalizado".
+- **El passage es automático**: no hay que mover ni borrar nada. Cuando un evento pasa su fecha, se va solo de la agenda y aparece en la sección de realizados.
+- Un evento **sin fecha** se mostrará siempre en la agenda, hasta que le pongas una.
+
+Esto significa que puedes crear los eventos con antelación y olvidarte de ellos.
+
 ## Consejos importantes
 
 - **Imágenes**: Usa fotos en formato JPG o PNG. Tamaño recomendado: menos de 5 MB por imagen.
