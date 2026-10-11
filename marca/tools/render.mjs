@@ -138,6 +138,8 @@ const JOBS = {
     // El símbolo suelto, para avatar y favicon
     { svg: L("sanluis3-simbolo.svg"),        out: L("png/simbolo-512.png"),         w: 512,  h: 512,  fondo: "#fff9f6" },
     { svg: L("sanluis3-simbolo.svg"),        out: L("png/simbolo-avatar-512.png"),  w: 512,  h: 512,  fondo: "#fc6c5a" },
+    // El símbolo en blanco, para fondo oscuro
+    { svg: L("sanluis3-simbolo-reversa.svg"), out: L("png/simbolo-reversa-512.png"),  w: 512, h: 405, fondo: "#1e3036" },
     // Favicon
     { svg: L("favicon.svg"),                out: L("png/favicon-64.png"),          w: 64,   h: 64,   fondo: "#ffffff" },
     { svg: L("favicon.svg"),                out: L("png/favicon-180.png"),        w: 180,  h: 180,  fondo: "#ffffff" },

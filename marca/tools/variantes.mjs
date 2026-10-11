@@ -126,11 +126,33 @@ writeFileSync(
   "utf8"
 );
 
+/* ---------- 4 · SÍMBOLO REVERSO · el mismo recorte, para fondo oscuro ----------
+   Es el símbolo con la figura izquierda en blanco. Sobre fondo oscuro
+   la versión de color se pierde: el personaje azul tinta se confunde
+   con el fondo. Es la que usa la portada del manual y las piezas
+   que van sobre tinta o salmón. */
+const simboloReversa = pintarCapa(simbolo, TINTA, BLANCO, "tinta");
+writeFileSync(
+  resolve(LOGO, "sanluis3-simbolo-reversa.svg"),
+  encabezado(
+    "SÍMBOLO REVERSO (fondo oscuro)",
+    "Encabezados y piezas sobre fondo tinta o salmón: portada del manual, historias, portadas de TikTok y Facebook, panel oscuro del banner web.",
+    "Blanco y salmón.",
+    simboloReversa
+  ),
+  "utf8"
+);
+
 /* ---------- informe ---------- */
 for (const { hex, nombre } of CAPAS) {
   if (!base.includes(`fill="${hex}"`)) console.log(`  aviso: la capa ${nombre} no está en el base`);
 }
 console.log("Variantes generadas en marca/logo/:");
-for (const f of ["sanluis3-logo-reversa.svg", "sanluis3-logo-mono.svg", "sanluis3-simbolo.svg"]) {
+for (const f of [
+  "sanluis3-logo-reversa.svg",
+  "sanluis3-logo-mono.svg",
+  "sanluis3-simbolo.svg",
+  "sanluis3-simbolo-reversa.svg",
+]) {
   console.log("  · " + f);
 }
