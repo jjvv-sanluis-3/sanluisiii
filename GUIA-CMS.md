@@ -9,7 +9,7 @@ Este panel te permite **crear y editar eventos** y **subir imágenes** a la pág
 ## Cómo acceder
 
 1. Abre tu navegador (Chrome, Firefox, Edge, etc.)
-2. Ve a esta dirección: **https://jjvv-san-luis-3.github.io/sanluisiii/admin**
+2. Ve a esta dirección: **https://jjvv-sanluis-3.github.io/sanluisiii/admin/#/**
 3. Haz clic en **"Iniciar sesión con GitHub"**
 4. Ingresa con tu cuenta de GitHub (si no tienes una, es gratis crearla en github.com)
 
@@ -72,6 +72,6 @@ Este panel te permite **crear y editar eventos** y **subir imágenes** a la pág
 ## ¿Problemas?
 
 Si algo no funciona, contacta a la persona que configuró el panel o revisa que:
-- Estás usando la URL correcta: `https://jjvv-san-luis-3.github.io/sanluisiii/admin`
+- Estás usando la URL correcta: `https://jjvv-sanluis-3.github.io/sanluisiii/admin/#/` (con barra final)
 - Tu cuenta GitHub tiene permisos de escritura en el repositorio
 - El repositorio está público (requisito para GitHub Pages gratuito)

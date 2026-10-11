@@ -4,7 +4,8 @@
 Static single-page site for JJ.VV. San Luis III (Junta de Vecinos, Maipú, Chile). No framework, no build step, no package manager.
 
 ## Deployment
-- Target: GitHub Pages (user site: `jjvv-san-luis-3.github.io`)
+- Target: GitHub Pages (project site: `https://jjvv-sanluis-3.github.io/sanluisiii/`)
+- Repo: `jjvv-sanluis-3/sanluisiii` (owner **sin** guion entre "san" y "luis")
 - Entry file must be `index.html` — the source file `JJVV-San-Luis-III.html` must be renamed before deploying
 - Repo must be **Public** (required for free GitHub Pages)
 - Planned CMS: Decap CMS at `/admin` for non-technical content editors (not yet configured)

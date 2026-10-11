@@ -6,7 +6,7 @@ backend:
   base_url: https://decap-oauth.fundacionsanluis3.workers.dev
 
 media_folder: "uploads"
-# El sitio se sirve en https://jjvv-san-luis-3.github.io/sanluisiii/,
+# El sitio se sirve en https://jjvv-sanluis-3.github.io/sanluisiii/,
 # por lo que la ruta publica debe incluir el subdirectorio del proyecto.
 public_folder: "/sanluisiii/uploads"
 
