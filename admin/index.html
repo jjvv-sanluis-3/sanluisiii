@@ -9,12 +9,25 @@
 </head>
 <body>
   <!--
-    Esta pagina debe quedar minima: Decap CMS toma control de todo el body.
-    No agregar aqui encabezado, avisos ni otros elementos, porque provocan el
-    error "Failed to execute 'removeChild' on 'Node'" (decaporg/decap-cms#7622).
+    Panel de administracion de JJ.VV. San Luis III (Decap CMS).
+
+    Dos cuidados importantes, ambos comentados en issues oficiales:
+
+    1) Esta pagina debe quedar minima. Decap toma control de todo el body, asi que
+       no se deben agregar encabezados ni avisos aqui.
+       Ver decaporg/decap-cms#7622
+
+    2) La inicializacion debe quedar APLAZADA. Con CMS_MANUAL_INIT + un script
+       type="module" (que el navegador ejecuta solo cuando el HTML ya esta
+       completo), React monta sobre un DOM estable. Si se inicializa durante el
+       parseo, el navegador mueve nodos ya montados y falla con
+       "Failed to execute 'removeChild' on 'Node'".
+       Ver decaporg/decap-cms#6965
+
     IMPORTANTE: entrar siempre a /admin/#/  (con barra final), nunca a /admin#
   -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
   <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>CMS.init();</script>
+  <script type="module">window.initCMS();</script>
 </body>
 </html>
