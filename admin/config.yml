@@ -1,6 +1,7 @@
 backend:
   name: github
-  repo: jjvv-san-luis-3/sanluisiii
+  # Propietario real del repositorio: jjvv-sanluis-3 (sin guion entre "san" y "luis").
+  repo: jjvv-sanluis-3/sanluisiii
   branch: main
   base_url: https://decap-oauth.fundacionsanluis3.workers.dev
 
