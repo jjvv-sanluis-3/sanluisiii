@@ -140,6 +140,10 @@ const JOBS = {
     { svg: L("sanluis3-simbolo.svg"),        out: L("png/simbolo-avatar-512.png"),  w: 512,  h: 512,  fondo: "#fc6c5a" },
     // El símbolo en blanco, para fondo oscuro
     { svg: L("sanluis3-simbolo-reversa.svg"), out: L("png/simbolo-reversa-512.png"),  w: 512, h: 405, fondo: "#1e3036" },
+    // El bloque de nombre: las letras y la píldora sueltas, para pie de página
+    { svg: L("sanluis3-nombre.svg"),        out: L("png/nombre-600.png"),         w: 600, h: 239, fondo: "#fff9f6" },
+    { svg: L("sanluis3-nombre-reversa.svg"), out: L("png/nombre-reversa-600.png"), w: 600, h: 239, fondo: "#1e3036" },
+    { svg: L("sanluis3-nombre.svg"),        out: L("png/nombre-180.png"),         w: 180, h: 72,  fondo: "#fff9f6" },
     // Favicon: reducción aparte, no un recorte del logo
     { svg: L("favicon.svg"),                out: L("png/favicon-16.png"),   w: 16,  h: 16,  fondo: "#ffffff" },
     { svg: L("favicon.svg"),                out: L("png/favicon-32.png"),   w: 32,  h: 32,  fondo: "#ffffff" },

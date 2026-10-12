@@ -188,27 +188,25 @@ writeFileSync(
   "utf8"
 );
 
-/* ---------- 3 · SÍMBOLO · sin el texto, para avatar y favicon ----------
-   El recorte usa el borde inferior real del emblema que midió el
-   trazador (data-emblem-bottom). Con un porcentaje del lienzo se
-   cortaban 31 px del medallón y entraba parte de la fila "JJVV".
-
-   Además del viewBox se pone un clipPath explícito: se comprobó que
-   algunos renderizadores dibujan la fila "JJVV" aunque quede fuera
-   del viewBox, y en el manual se veía cortada. Con el recorte
-   explícito no depende de cómo lo interprete el navegador. */
-function recortarSimbolo(svg) {
+/**
+ * Recorta una banda horizontal del logo usando las medidas que dejó
+ * el trazador (data-bbox y data-emblem-bottom).
+ *
+ * Además del viewBox se pone un clipPath explícito: se comprobó que
+ * algunos renderizadores dibujan contenido aunque quede fuera del
+ * viewBox, y en el manual se veía cortado. Con el recorte explícito no
+ * depende de cómo lo interprete el navegador.
+ */
+function recortarBanda(svg, y0, y1) {
   const bbox = svg.match(/data-bbox="(\d+) (\d+) (\d+) (\d+)"/);
-  const borde = svg.match(/data-emblem-bottom="(\d+)"/);
-  if (!bbox || !borde) {
+  if (!bbox) {
     throw new Error(
-      "El SVG base no trae data-bbox ni data-emblem-bottom.\n" +
+      "El SVG base no trae data-bbox.\n" +
         "Regenerá el logo con:  python marca/tools/vectorizar.py"
     );
   }
-  const [, bx, by, bw] = bbox.map(Number);
-  const fondo = Number(borde[1]);
-  const alto = fondo - by;
+  const [, bx, , bw] = bbox.map(Number);
+  const alto = y1 - y0;
 
   // Se parte el SVG en apertura / contenido / cierre
   const i = svg.indexOf("<svg");
@@ -219,20 +217,36 @@ function recortarSimbolo(svg) {
   const meta = svg.slice(0, i);
 
   const aperturaNueva = apertura
-    .replace(/viewBox="0 0 1254 1254"/, `viewBox="${bx} ${by} ${bw} ${alto}"`)
+    .replace(/viewBox="0 0 1254 1254"/, `viewBox="${bx} ${y0} ${bw} ${alto}"`)
     // width/height tienen que acompañar al viewBox; si no, el navegador
-    // reserva un lienzo cuadrado y el símbolo queda con aire de más
+    // reserva un lienzo cuadrado y el recorte queda con aire de más
     .replace(/\s*width="1254" height="1254"/, ` width="${bw}" height="${alto}"`)
-    .replace(/\s*data-(bbox|emblem-bottom)="[^"]*"/g, "");
+    .replace(/\s*data-(bbox|emblem-bottom|medallon)="[^"]*"/g, "");
 
   return (
     meta +
     aperturaNueva +
-    `\n  <clipPath id="recorte"><rect x="${bx}" y="${by}" width="${bw}" height="${alto}"/></clipPath>` +
+    `\n  <clipPath id="recorte"><rect x="${bx}" y="${y0}" width="${bw}" height="${alto}"/></clipPath>` +
     `\n  <g clip-path="url(#recorte)">` +
     contenido +
     `</g>\n</svg>\n`
   );
+}
+
+/* ---------- 3 · SÍMBOLO · sin el texto, para avatar y favicon ----------
+   El recorte usa el borde inferior real del emblema que midió el
+   trazador (data-emblem-bottom). Con un porcentaje del lienzo se
+   cortaban 31 px del medallón y entraba parte de la fila "JJVV". */
+function recortarSimbolo(svg) {
+  const borde = svg.match(/data-emblem-bottom="(\d+)"/);
+  const bbox = svg.match(/data-bbox="(\d+) (\d+) (\d+) (\d+)"/);
+  if (!bbox || !borde) {
+    throw new Error(
+      "El SVG base no trae data-bbox ni data-emblem-bottom.\n" +
+        "Regenerá el logo con:  python marca/tools/vectorizar.py"
+    );
+  }
+  return recortarBanda(svg, Number(bbox[2]), Number(borde[1]));
 }
 
 const simbolo = recortarSimbolo(cuerpoSvg);
@@ -274,6 +288,50 @@ writeFileSync(
     "Piezas sobre superficie salmón: carrusel, panel del post de Facebook, aviso de WhatsApp, sticker del board.",
     "Tinta y blanco.",
     simboloTinta
+  ),
+  "utf8"
+);
+
+/* ---------- 6 · NOMBRE · las letras sueltas, para pie de página ----------
+   Antes el manual ponía "JJVV" escrito con la tipografía del documento,
+   como placeholder. No era el logo: el de verdad tiene una J con curva
+   y las V afiladas, y eso es justo lo que hace reconocible la marca.
+   Este recorte saca las letras y la píldora del logo maestro, con sus
+   trazos reales, para el pie de página.
+
+   Se recorta desde el borde inferior del emblema (data-emblem-bottom,
+   821) hasta el fin del dibujo, así el bloque sale centrado con el
+   ancho real del logo y no inventado. */
+const bbox = cuerpoSvg.match(/data-bbox="(\d+) (\d+) (\d+) (\d+)"/);
+const bordeEmblema = cuerpoSvg.match(/data-emblem-bottom="(\d+)"/);
+if (!bbox || !bordeEmblema) {
+  throw new Error(
+    "El SVG base no trae data-bbox ni data-emblem-bottom.\n" +
+      "Regenerá el logo con:  python marca/tools/vectorizar.py"
+  );
+}
+const finDibujo = Number(bbox[2]) + Number(bbox[4]);
+const nombre = recortarBanda(cuerpoSvg, Number(bordeEmblema[1]), finDibujo);
+writeFileSync(
+  resolve(LOGO, "sanluis3-nombre.svg"),
+  encabezado(
+    "NOMBRE (letras sueltas)",
+    "Pie de página del sitio, firma de correos, membretes, stickers de texto. Se usa donde el emblema ya está cerca y solo hace falta el nombre.",
+    "Mismos colores que el logo completo.",
+    nombre
+  ),
+  "utf8"
+);
+
+/* ---------- 7 · NOMBRE REVERSO · el mismo bloque sobre fondo oscuro ---------- */
+const nombreReversa = pintarFueraDelMedallon(nombre, TINTA, BLANCO, "tinta");
+writeFileSync(
+  resolve(LOGO, "sanluis3-nombre-reversa.svg"),
+  encabezado(
+    "NOMBRE REVERSO (fondo oscuro)",
+    "Pie de página oscuro, firma sobre fondo tinta o salmón.",
+    "Blanco y salmón.",
+    nombreReversa
   ),
   "utf8"
 );

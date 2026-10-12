@@ -13,7 +13,7 @@ en el navegador. Tiene índice y se puede imprimir o guardar como PDF.
 
 | Carpeta | Qué contiene |
 |---|---|
-| `logo/` | El logo en **SVG** (vectorial, se imprime nítido en cualquier tamaño) y sus versiones: color, reversa para fondos oscuros, monocroma y el símbolo suelto. |
+| `logo/` | El logo en **SVG** (vectorial, se imprime nítido en cualquier tamaño) y sus versiones: color, reversa para fondos oscuros, monocroma, el símbolo suelto y el bloque de nombre. |
 | `tokens/` | `tokens.css` y `tokens.json`: todos los colores, medidas y sombras del sistema. Es lo único que hay que tocar para cambiar algo en toda la marca. |
 | `tipo/` | Las dos tipografías (Outfit y Plus Jakarta Sans), ya alojadas en la web. No se descarga nada de internet. |
 | `plantillas/` | Las 8 piezas listas para publicar, cada una con su archivo editable (`.html`) y su imagen (`.png`) en el tamaño exacto de su plataforma. |
@@ -97,6 +97,19 @@ versiones y cada una va en su lugar:
 Se probaron recortes reales del emblema para el favicon y ninguno funcionaba:
 a 16 px todo se ve como una mancha gris. Por eso el favicon es una reducción
 dibujada a medida, no un recorte.
+
+## El bloque de nombre
+
+`sanluis3-nombre.svg` y `sanluis3-nombre-reversa.svg` son solo las letras
+`JJVV` y la píldora `SAN LUIS III`, recortadas del logo maestro con sus trazos
+reales. Van en el pie de página, firmas de correo y membretes, donde el emblema
+ya está cerca y solo hace falta el nombre.
+
+Existe porque antes el manual ponía «JJVV» escrito con la tipografía del
+documento como si fuera el logo. No lo era: la `J` del logo cae con curva hacia
+la izquierda y las `V` terminan en punta, y esa diferencia es justo lo que hace
+reconocible la marca. **El nombre no se escribe nunca con una fuente**, se usa
+el archivo.
 
 ## Decisiones que ya están tomadas
 
