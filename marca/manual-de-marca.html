@@ -131,14 +131,67 @@ pre code{background:none;color:inherit;padding:0}
    IMPRESIÓN · una columna, sin sombras, con saltos limpios
    ============================================================ */
 @media print{
-  @page{size:A4;margin:16mm 14mm}
-  body{background:#fff}
+  @page{size:A4;margin:12mm}
+  html,body{background:#fff}
   .envoltorio{box-shadow:none;max-width:none;padding:0}
-  .portada{margin:0 0 30px;padding:44px 34px;break-after:page}
-  h2{break-before:page;break-after:avoid}
-  h2:first-of-type{break-before:auto}
-  .dos,.prohibido,.muestras,.piezas,.muestras-logo{break-inside:avoid}
-  table{break-inside:avoid}
+
+  /* COMPACTACIÓN SOLO PARA IMPRIMIR.
+     En pantalla el aire se ve bien; en una hoja A4 ese mismo aire
+     empuja las últimas líneas de cada sección a una página nueva
+     casi vacía. Como cada sección ya empieza en hoja, ese margen
+     inicial no aporta nada: se recorta. */
+  h2{margin:0 0 10px;font-size:1.85rem}
+  h3{margin:20px 0 8px;font-size:1.16rem}
+  /* El texto corrido es lo que más alto se lleva en un manual: con
+     15 px e interlineado 1,5 las secciones que se pasaban de alto
+     vuelven a entrar en su hoja. */
+  body{font-size:15px;line-height:1.5}
+  p{margin:0 0 10px}
+  ul,ol{margin:0 0 10px}
+  li{margin:4px 0}
+  .ojo,.evitar{margin:12px 0;padding:13px 20px}
+  pre{margin:12px 0}
+  .muestras,.muestras-logo,.piezas,.prohibido,.dos{margin:16px 0}
+  .rotulo{margin-bottom:12px}
+  /* El cierre del documento pedía 96 px de aire antes de sus dos líneas.
+     Con 8 px de padding se caía a una hoja nueva sola; sin padding entra
+     en la página anterior y el manual cierra en 17. La línea divisoria
+     se conserva. */
+  .pie-doc{margin-top:0;padding-top:0}
+
+  /* La portada ocupa su propia hoja. */
+  .portada{margin:0 0 30px;padding:44px 34px;break-after:page;page-break-after:always}
+
+  /* Sin huérfanas ni viudas: nadie corta una idea a la mitad para
+     llenar la página. */
+  p,li{orphans:3;widows:3}
+
+  /* Un título nunca queda solo al pie de una página. */
+  h2,h3,h4{break-after:avoid;page-break-after:avoid}
+  /* Cada sección sí empieza en hoja nueva. */
+  h2{break-before:page;page-break-before:always}
+  h2:first-of-type{break-before:auto;page-break-before:auto}
+
+  /* LO QUE SE MANTIENE ENTERO SON LAS PIEZAS, NO LAS RETÍCULAS.
+     Antes ponía break-inside:avoid sobre la retícula completa, pero la
+     de logos es más alta que una hoja: el navegador no podía cumplir
+     la regla, así que empujaba el bloque entero a la página siguiente
+     y dejaba medio folio en blanco. Ahora cada tarjeta se mantiene
+     entera y la retícula fluye de hoja en hoja. */
+  .caja-logo,.malo,.pieza,.dos > *,.ojo{break-inside:avoid;page-break-inside:avoid}
+  table,.indice{break-inside:avoid;page-break-inside:avoid}
+
+  /* Las imágenes se achican para que su tarjeta quepa en la hoja: con
+     el tamaño de pantalla, una tarjeta de logo se come media página. */
+  .caja-logo img{max-height:46mm}
+  .malo img{max-height:40mm}
+  .muestras-logo{gap:10px}
+  /* Las piezas caen en una sola columna al imprimir, así que el marco
+     de altura fija dejaba un cuadro enorme con la imagen diminuta
+     adentro. El marco se ajusta a la imagen. */
+  .pieza .marco{height:auto;padding:10px;width:fit-content;max-width:100%;margin:0 auto}
+  .pieza .marco img{max-height:46mm;max-width:100%;width:auto}
+
   a{color:inherit;text-decoration:none}
 }
 @media (max-width:760px){

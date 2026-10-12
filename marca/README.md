@@ -65,6 +65,9 @@ node marca/tools/plantillas.mjs             # Regenera las 8 plantillas
 node marca/tools/board.mjs                  # Regenera la retícula 3x3
 node marca/tools/render.mjs                 # Exporta TODO a PNG y PDF
 node marca/tools/render.mjs solo=plantillas # Solo un grupo
+
+pip install pymupdf                        # Solo para revisar el PDF
+python marca/tools/revisar-pdf.py           # Revisa que el PDF quedó parejo
 ```
 
 ## Requisitos
@@ -127,3 +130,13 @@ Estas se discutieron y se dejaron escritas para que nadie las vuelva a abrir:
   otra versión simplificada. `logo/sanluis3-logo-completo.svg` es la
   reconstrucción vectorial del logotipo original, y de ella salen todas las
   demás versiones.
+- **El medallón es autónomo.** Lleva su propio disco blanco, así que tiene que
+  verse igual sobre cualquier fondo: eso es lo que hace que el logo se lea
+  siempre como el mismo y no como tres logos distintos. Al cambiar de fondo solo
+  se repintan las figuras de afuera. Si se repintara también el interior, el
+  balón de fútbol y el de vóleibol —que son del mismo azul tinta que la
+  figura— se fundirían con el disco blanco y el medallón perdería su dibujo.
+- **El manual se mide, no se mira.** `tools/revisar-pdf.py` revisa que el PDF no
+  tenga huecos interiores ni páginas con dos líneas sueltas. Imprimir el HTML con
+  el navegador parte el contenido donde quiere; sin ese control se vuelve a
+  romper sin que nadie se dé cuenta.
